@@ -1,20 +1,18 @@
-import { setErrorAC, setErrorType, setRequestStatusAC, setRequestStatusType } from "../app/app-reducer";
 import { Dispatch } from "redux";
-import { ResponseType } from "../api/todolists-api";
+import { ResponseType } from "api/todolists-api";
+import { appActions } from "app/app-reducer";
 
 // generic function
-export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: ErrorUtilsDispatchType) => {
+export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: Dispatch) => {
   if (data.messages.length) {
-    dispatch(setErrorAC(data.messages[0]));
+    dispatch(appActions.setError({ error: data.messages[0] }));
   } else {
-    dispatch(setErrorAC("Some error occurred"));
+    dispatch(appActions.setError({ error: "Some error occurred" }));
   }
-  dispatch(setRequestStatusAC("failed"));
+  dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
 };
 
-export const handleServerNetworkError = (error: string, dispatch: ErrorUtilsDispatchType) => {
-  dispatch(setErrorAC(error));
-  dispatch(setRequestStatusAC("failed"));
+export const handleServerNetworkError = (error: string, dispatch: Dispatch) => {
+  dispatch(appActions.setError({ error }));
+  dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
 };
-
-type ErrorUtilsDispatchType = Dispatch<setRequestStatusType | setErrorType>;

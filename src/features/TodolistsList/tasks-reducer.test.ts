@@ -1,6 +1,6 @@
 import { tasksReducer, TasksStateType } from "./tasks-reducer";
 import { addTaskAC, removeTaskAC, updateTaskAC } from "./tasks-reducer";
-import { TaskStatuses, TaskType } from "../../api/todolists-api";
+import { TaskStatuses, TaskType } from "api/todolists-api";
 
 describe("tasks reducer", () => {
   let startState: TasksStateType = {};
