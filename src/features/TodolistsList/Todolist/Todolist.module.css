@@ -1,13 +1,13 @@
-.todolist{
-    display: flex;
-    height: 30px;
-    align-items: center;
-    font-weight: bold;
-    font-size: 20px;
-    margin: 15px 0;
+.todolist {
+  display: flex;
+  height: 30px;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 15px 0;
 }
-.buttonGroup{
-    padding-top: 10px;
-    display: flex;
-    justify-content: center
+.buttonGroup {
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
 }

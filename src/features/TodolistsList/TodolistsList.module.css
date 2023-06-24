@@ -1,15 +1,14 @@
 .gridContainer {
-    padding: 20px 0;
+  padding: 20px 0;
 }
-.AddItemFormPaper{
-    padding: 10px;
-    border-radius: 15px !important;
-    border: 6px solid lightblue;
-
+.AddItemFormPaper {
+  padding: 10px;
+  border-radius: 15px !important;
+  border: 6px solid lightblue;
 }
-.TodolistPaper{
-    opacity: 0.95;
-    padding: 10px;
-    border-radius: 15px !important;
-    border: 6px solid coral;
+.TodolistPaper {
+  opacity: 0.95;
+  padding: 10px;
+  border-radius: 15px !important;
+  border: 6px solid coral;
 }
