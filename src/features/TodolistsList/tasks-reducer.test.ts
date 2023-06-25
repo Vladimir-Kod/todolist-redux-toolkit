@@ -1,5 +1,4 @@
-import { tasksReducer, TasksStateType } from "./tasks-reducer";
-import { addTaskAC, removeTaskAC, updateTaskAC } from "./tasks-reducer";
+import { tasksActions, tasksReducer, TasksStateType } from "./tasks-reducer";
 import { TaskStatuses, TaskType } from "api/todolists-api";
 
 describe("tasks reducer", () => {
@@ -93,7 +92,7 @@ describe("tasks reducer", () => {
   });
 
   it("correct task should be deleted from correct array", () => {
-    const action = removeTaskAC("2", "todolistId2");
+    const action = tasksActions.removeTask({ taskId: "2", todolistId: "todolistId2" });
 
     const endState = tasksReducer(startState, action);
 
@@ -117,7 +116,7 @@ describe("tasks reducer", () => {
       addedDate: "",
     };
 
-    const action = addTaskAC(task);
+    const action = tasksActions.addTask({ task });
 
     const endState = tasksReducer(startState, action);
 
@@ -130,7 +129,11 @@ describe("tasks reducer", () => {
   });
 
   it("status of specified task should be changed", () => {
-    const action = updateTaskAC("2", { status: TaskStatuses.New }, "todolistId2");
+    const action = tasksActions.updateTask({
+      taskId: "2",
+      model: { status: TaskStatuses.New },
+      todolistId: "todolistId2",
+    });
 
     const endState = tasksReducer(startState, action);
 
@@ -140,7 +143,7 @@ describe("tasks reducer", () => {
   });
 
   it("title of specified task should be changed", () => {
-    const action = updateTaskAC("2", { title: "MilkyWay" }, "todolistId2");
+    const action = tasksActions.updateTask({ taskId: "2", model: { title: "MilkyWay" }, todolistId: "todolistId2" });
 
     const endState = tasksReducer(startState, action);
 

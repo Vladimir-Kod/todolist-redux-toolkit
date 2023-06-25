@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { TaskStatuses } from "../../../../api/todolists-api";
+import { TaskStatuses } from "api/todolists-api";
 import { TaskTypeWithEntityTaskStatusType } from "../../tasks-reducer";
 import { FilterValuesType } from "../../todolists-reducer";
 

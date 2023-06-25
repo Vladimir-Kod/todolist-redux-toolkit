@@ -1,16 +1,16 @@
 import { useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/store";
+import { useAppDispatch, useAppSelector } from "app/store";
 import {
   addTodolistTC,
-  changeTodolistFilterAC,
   changeTodolistTitleTC,
   FilterValuesType,
   removeTodolistTC,
   TodolistDomainType,
+  todolistsActions,
 } from "../todolists-reducer";
 import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from "../tasks-reducer";
-import { RequestStatusType } from "../../../app/app-reducer";
-import { TaskStatuses } from "../../../api/todolists-api";
+import { RequestStatusType } from "app/app-reducer";
+import { TaskStatuses } from "api/todolists-api";
 
 const useTodolistList = () => {
   const todolists = useAppSelector<Array<TodolistDomainType>>((state) => state.todolists);
@@ -40,7 +40,7 @@ const useTodolistList = () => {
   }, []);
 
   const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
-    const action = changeTodolistFilterAC(todolistId, value);
+    const action = todolistsActions.changeTodolistFilter({ id: todolistId, filter: value });
     dispatch(action);
   }, []);
 
