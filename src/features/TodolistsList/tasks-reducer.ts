@@ -5,6 +5,7 @@ import { handleServerAppError, handleServerNetworkError } from "utils/error-util
 import axios, { AxiosError } from "axios";
 import { todolistsActions } from "features/TodolistsList/todolists-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { clearTasksAndTodolists } from "common/actions/common.action";
 
 const slice = createSlice({
   name: "tasks",
@@ -49,6 +50,9 @@ const slice = createSlice({
       })
       .addCase(todolistsActions.setTodolists, (state, action) => {
         action.payload.todolists.forEach((tl) => (state[tl.id] = []));
+      })
+      .addCase(clearTasksAndTodolists.type, () => {
+        return {};
       });
   },
 });
@@ -171,6 +175,7 @@ export const updateTaskTC =
         handleServerNetworkError(errorMessage, dispatch);
       } else {
         const error = (e as Error).message;
+        handleServerNetworkError(error, dispatch);
       }
     }
   };

@@ -5,6 +5,7 @@ import { handleServerAppError, handleServerNetworkError } from "utils/error-util
 import axios from "axios";
 import { AppThunk } from "app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { clearTasksAndTodolists } from "common/actions/common.action";
 
 const slice = createSlice({
   name: "todolist",
@@ -32,7 +33,11 @@ const slice = createSlice({
     setTodolists: (state, action: PayloadAction<{ todolists: Array<TodolistType> }>) => {
       return action.payload.todolists.map((todo) => ({ ...todo, filter: "all", entityStatus: "idle" }));
     },
-    clearData: () => {},
+  },
+  extraReducers: (builder) => {
+    builder.addCase(clearTasksAndTodolists.type, () => {
+      return [];
+    });
   },
 });
 
@@ -74,6 +79,7 @@ export const removeTodolistTC = (todolistId: string): AppThunk => {
         handleServerNetworkError(errorMessage, dispatch);
       } else {
         const error = (e as Error).message;
+        handleServerNetworkError(error, dispatch);
       }
       dispatch(todolistsActions.setEntityStatus({ id: todolistId, entityStatus: "failed" }));
     }
@@ -100,6 +106,7 @@ export const addTodolistTC = (title: string): AppThunk => {
         handleServerNetworkError(errorMessage, dispatch);
       } else {
         const error = (e as Error).message;
+        handleServerNetworkError(error, dispatch);
       }
       dispatch(appActions.setAddTodoListStatus({ todoListStatus: "failed" }));
     }
@@ -122,6 +129,7 @@ export const changeTodolistTitleTC = (id: string, title: string): AppThunk => {
         handleServerNetworkError(errorMessage, dispatch);
       } else {
         const error = (e as Error).message;
+        handleServerNetworkError(error, dispatch);
       }
     }
   };

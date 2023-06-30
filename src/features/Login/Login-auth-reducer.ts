@@ -1,13 +1,10 @@
 import { authAPI, AuthRequestType } from "api/todolists-api";
 import { ResultCode } from "../TodolistsList/tasks-reducer";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
-import { Simulate } from "react-dom/test-utils";
-import error = Simulate.error;
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk } from "app/store";
 import { appActions } from "app/app-reducer";
-import { todolistsActions } from "features/TodolistsList/todolists-reducer";
+import { clearTasksAndTodolists } from "common/actions/common.action";
 
 const slice = createSlice({
   name: "auth",
@@ -50,7 +47,7 @@ export const logOutTC = (): AppThunk => async (dispatch) => {
     if (res.data.resultCode === ResultCode.OK) {
       dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
       dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
-      dispatch(todolistsActions.clearData());
+      dispatch(clearTasksAndTodolists());
     } else {
       handleServerAppError<{}>(res.data, dispatch);
       dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
