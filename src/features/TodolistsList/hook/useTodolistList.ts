@@ -8,7 +8,7 @@ import {
   TodolistDomainType,
   todolistsActions,
 } from "../todolists-reducer";
-import { addTaskTC, removeTaskTC, TasksStateType, updateTaskTC } from "../tasks-reducer";
+import { removeTaskTC, TasksStateType, taskThanks, updateTaskTC } from "../tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
 import { TaskStatuses } from "api/todolists-api";
 
@@ -25,7 +25,7 @@ const useTodolistList = () => {
   }, []);
 
   const addTask = useCallback(function (title: string, todolistId: string) {
-    const thunk = addTaskTC(title, todolistId);
+    const thunk = taskThanks.addTask({ title, todolistId });
     dispatch(thunk);
   }, []);
 

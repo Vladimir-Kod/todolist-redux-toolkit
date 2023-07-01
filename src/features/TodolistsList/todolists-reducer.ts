@@ -1,6 +1,6 @@
 import { todolistsAPI, TodolistType } from "api/todolists-api";
 import { appActions, RequestStatusType } from "app/app-reducer";
-import { ErrorsType, fetchTasksTC, ResultCode } from "./tasks-reducer";
+import { ErrorsType, ResultCode, taskThanks } from "./tasks-reducer";
 import { handleServerAppError, handleServerNetworkError } from "utils/error-utils";
 import axios from "axios";
 import { AppThunk } from "app/store";
@@ -56,7 +56,7 @@ export const fetchTodolistsTC = (): AppThunk => {
         return res.data;
       })
       .then((todoLists) => {
-        todoLists.forEach((t) => dispatch(fetchTasksTC(t.id)));
+        todoLists.forEach((t) => dispatch(taskThanks.fetchTasks(t.id)));
       });
   };
 };
