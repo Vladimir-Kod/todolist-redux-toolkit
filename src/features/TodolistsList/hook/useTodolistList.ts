@@ -25,8 +25,7 @@ const useTodolistList = () => {
   }, []);
 
   const addTask = useCallback(function (title: string, todolistId: string) {
-    const thunk = taskThanks.addTask({ title, todolistId });
-    dispatch(thunk);
+    dispatch(taskThanks.addTask({ title, todolistId }));
   }, []);
 
   const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
