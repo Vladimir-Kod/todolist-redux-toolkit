@@ -8,11 +8,12 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import { useAppDispatch, useAppSelector } from "../../app/store";
+import { useAppDispatch, useAppSelector } from "app/store";
 import { loginTC } from "./Login-auth-reducer";
 import { Navigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import styles from "./../TodolistsList/TodolistsList.module.css";
+import { selectIsLoggedIN } from "features/Login/login-selectors";
 
 type FormikErrorType = {
   email?: string;
@@ -36,7 +37,7 @@ const validate = (values: any) => {
 };
 
 export const Login = () => {
-  const isLoggedIN = useAppSelector<boolean>((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIN);
   const dispatch = useAppDispatch();
 
   const formik = useFormik({
@@ -49,11 +50,10 @@ export const Login = () => {
     onSubmit: (values) => {
       dispatch(loginTC(values));
       formik.resetForm();
-      // formik.resetForm(  {values: {password: 'Custom initial values', email:'', rememberMe: true}})
     },
   });
 
-  if (isLoggedIN) {
+  if (isLoggedIn) {
     return <Navigate to={"/"} />;
   }
 
@@ -76,14 +76,7 @@ export const Login = () => {
                 <p>Password: free</p>
               </FormLabel>
               <FormGroup>
-                <TextField
-                  label="Email"
-                  margin="normal"
-                  // onChange={formik.handleChange} содержит getFieldProps
-                  // name="email"                   содержит getFieldProps
-                  // onBlur={formik.handleBlur}     содержит getFieldProps
-                  {...formik.getFieldProps("email")}
-                />
+                <TextField label="Email" margin="normal" {...formik.getFieldProps("email")} />
                 {formik.touched.email && formik.errors.email && (
                   <div style={{ color: "red" }}>{formik.errors.email}</div>
                 )}
