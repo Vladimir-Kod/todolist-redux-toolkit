@@ -7,8 +7,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import LinearProgress from "@mui/material/LinearProgress";
-import { useSelector } from "react-redux";
-import { AppRootStateType, useAppDispatch, useAppSelector } from "./store";
+import { useAppDispatch, useAppSelector } from "./store";
 import { RequestStatusType } from "./app-reducer";
 import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
 import { Login } from "features/Login/Login";
@@ -16,11 +15,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { authMeTC, logOutTC } from "features/Login/Login-auth-reducer";
 import CircularProgress from "@mui/material/CircularProgress";
 import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
+import { selectIsInitialized, selectIsLoggedIn, selectStatus } from "app/app-selectors";
 
 function App() {
-  const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status);
-  const isInitialized = useAppSelector<boolean>((state) => state.app.isInitialized);
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn);
+  const status = useAppSelector<RequestStatusType>(selectStatus);
+  const isInitialized = useAppSelector<boolean>(selectIsInitialized);
+  const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
   const dispatch = useAppDispatch();
 
   const logOut = () => {
