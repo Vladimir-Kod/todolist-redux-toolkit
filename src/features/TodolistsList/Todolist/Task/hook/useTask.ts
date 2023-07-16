@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback } from "react";
-import { TaskStatuses } from "../../../../../api/todolists-api";
+import { TaskStatuses } from "api/todolists-api";
 
 const useTask = (
   propsRemoveTask: (taskId: string, todolistId: string) => void,

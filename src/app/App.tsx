@@ -15,7 +15,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { authMeTC, logOutTC } from "features/Login/Login-auth-reducer";
 import CircularProgress from "@mui/material/CircularProgress";
 import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
-import { selectIsInitialized, selectIsLoggedIn, selectStatus } from "app/app-selectors";
+import { selectIsInitialized, selectStatus } from "app/app-selectors";
+import { selectIsLoggedIn } from "features/Login/login-selectors";
 
 function App() {
   const status = useAppSelector<RequestStatusType>(selectStatus);

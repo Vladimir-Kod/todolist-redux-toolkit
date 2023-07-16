@@ -13,7 +13,7 @@ import { loginTC } from "./Login-auth-reducer";
 import { Navigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import styles from "./../TodolistsList/TodolistsList.module.css";
-import { selectIsLoggedIN } from "features/Login/login-selectors";
+import { selectIsLoggedIn } from "features/Login/login-selectors";
 
 type FormikErrorType = {
   email?: string;
@@ -37,7 +37,7 @@ const validate = (values: any) => {
 };
 
 export const Login = () => {
-  const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIN);
+  const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
   const dispatch = useAppDispatch();
 
   const formik = useFormik({

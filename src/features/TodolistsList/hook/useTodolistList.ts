@@ -11,12 +11,15 @@ import {
 import { removeTaskTC, TasksStateType, taskThanks, updateTaskTC } from "../tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
 import { TaskStatuses } from "api/todolists-api";
+import { selectTasks, selectTodolists } from "features/TodolistsList/hook/useTodolistList-selectors";
+import { selectIsLoggedIn } from "features/Login/login-selectors";
+import { selectAddTodolistStatus } from "app/app-selectors";
 
 const useTodolistList = () => {
-  const todolists = useAppSelector<Array<TodolistDomainType>>((state) => state.todolists);
-  const tasks = useAppSelector<TasksStateType>((state) => state.tasks);
-  const isLoggedIn = useAppSelector<boolean>((state) => state.auth.isLoggedIn);
-  const addTodolistStatus = useAppSelector<RequestStatusType>((state) => state.app.addTodoListStatus);
+  const todolists = useAppSelector<Array<TodolistDomainType>>(selectTodolists);
+  const tasks = useAppSelector<TasksStateType>(selectTasks);
+  const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
+  const addTodolistStatus = useAppSelector<RequestStatusType>(selectAddTodolistStatus);
   const dispatch = useAppDispatch();
 
   const removeTask = useCallback(function (id: string, todolistId: string) {
