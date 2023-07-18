@@ -8,7 +8,7 @@ import {
   TodolistDomainType,
   todolistsActions,
 } from "../todolists-reducer";
-import { removeTaskTC, TasksStateType, taskThanks, updateTaskTC } from "../tasks-reducer";
+import { removeTaskTC, TasksStateType, taskThanks } from "../tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
 import { TaskStatuses } from "api/todolists-api";
 import { selectTasks, selectTodolists } from "features/TodolistsList/hook/useTodolistList-selectors";
@@ -31,14 +31,12 @@ const useTodolistList = () => {
     dispatch(taskThanks.addTask({ title, todolistId }));
   }, []);
 
-  const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
-    const thunk = updateTaskTC(id, { status }, todolistId);
-    dispatch(thunk);
+  const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
+    dispatch(taskThanks.updateTask({ taskId, domainModel: { status }, todolistId }));
   }, []);
 
-  const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
-    const thunk = updateTaskTC(id, { title: newTitle }, todolistId);
-    dispatch(thunk);
+  const changeTaskTitle = useCallback(function (taskId: string, title: string, todolistId: string) {
+    dispatch(taskThanks.updateTask({ taskId, domainModel: { title }, todolistId }));
   }, []);
 
   const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {

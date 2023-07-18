@@ -129,11 +129,12 @@ describe("tasks reducer", () => {
   });
 
   it("status of specified task should be changed", () => {
-    const action = tasksActions.updateTask({
+    const args = {
       taskId: "2",
-      model: { status: TaskStatuses.New },
+      domainModel: { status: TaskStatuses.New },
       todolistId: "todolistId2",
-    });
+    };
+    const action = taskThanks.updateTask.fulfilled(args, "requestId", args);
 
     const endState = tasksReducer(startState, action);
 
@@ -143,7 +144,12 @@ describe("tasks reducer", () => {
   });
 
   it("title of specified task should be changed", () => {
-    const action = tasksActions.updateTask({ taskId: "2", model: { title: "MilkyWay" }, todolistId: "todolistId2" });
+    const args = {
+      taskId: "2",
+      domainModel: { title: "MilkyWay" },
+      todolistId: "todolistId2",
+    };
+    const action = taskThanks.updateTask.fulfilled(args, "requestId", args);
 
     const endState = tasksReducer(startState, action);
 
