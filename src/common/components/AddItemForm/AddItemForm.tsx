@@ -2,7 +2,7 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import { AddBox } from "@mui/icons-material";
-import useAddItemForm from "./hook/useAddItemForm";
+import useAddItemForm from "common/components/AddItemForm/hook/useAddItemForm";
 
 type AddItemFormPropsType = {
   addItem: (title: string) => void;

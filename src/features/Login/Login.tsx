@@ -13,7 +13,7 @@ import { loginTC } from "./Login-auth-reducer";
 import { Navigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import styles from "./../TodolistsList/TodolistsList.module.css";
-import { selectIsLoggedIn } from "features/Login/login-selectors";
+import { selectIsLoggedIn } from "common/selectors/login-selectors";
 
 type FormikErrorType = {
   email?: string;

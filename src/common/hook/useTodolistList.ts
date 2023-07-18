@@ -7,13 +7,13 @@ import {
   removeTodolistTC,
   TodolistDomainType,
   todolistsActions,
-} from "../todolists-reducer";
-import { removeTaskTC, TasksStateType, taskThanks } from "../tasks-reducer";
+} from "features/TodolistsList/todolists-reducer";
+import { removeTaskTC, TasksStateType, taskThanks } from "features/TodolistsList/tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
-import { TaskStatuses } from "api/todolists-api";
-import { selectTasks, selectTodolists } from "features/TodolistsList/hook/useTodolistList-selectors";
-import { selectIsLoggedIn } from "features/Login/login-selectors";
-import { selectAddTodolistStatus } from "app/app-selectors";
+import { TaskStatuses } from "common/api/todolists-api";
+import { selectTasks, selectTodolists } from "common/selectors/useTodolistList-selectors";
+import { selectIsLoggedIn } from "common/selectors/login-selectors";
+import { selectAddTodolistStatus } from "common/selectors/app-selectors";
 
 const useTodolistList = () => {
   const todolists = useAppSelector<Array<TodolistDomainType>>(selectTodolists);

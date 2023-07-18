@@ -1,15 +1,15 @@
 import React from "react";
-import { AddItemForm } from "../../../components/AddItemForm/AddItemForm";
-import { EditableSpan } from "../../../components/EditableSpan/EditableSpan";
+import { AddItemForm } from "common/components/AddItemForm/AddItemForm";
+import { EditableSpan } from "common/components/EditableSpan/EditableSpan";
 import { Task } from "./Task/Task";
-import { TaskStatuses } from "../../../api/todolists-api";
+import { TaskStatuses } from "common/api/todolists-api";
 import { FilterValuesType } from "../todolists-reducer";
 import { TaskTypeWithEntityTaskStatusType } from "../tasks-reducer";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import { Delete } from "@mui/icons-material";
-import { RequestStatusType } from "../../../app/app-reducer";
-import useTodolist from "./hook/useTodolist";
+import { RequestStatusType } from "app/app-reducer";
+import useTodolist from "common/hook/useTodolist";
 import styles from "./Todolist.module.css";
 
 type PropsType = {

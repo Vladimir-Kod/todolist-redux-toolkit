@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { fetchTodolistsTC } from "./todolists-reducer";
-import { AddItemForm } from "components/AddItemForm/AddItemForm";
+import { AddItemForm } from "common/components/AddItemForm/AddItemForm";
 import { Todolist } from "./Todolist/Todolist";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { RequestStatusType } from "app/app-reducer";
 import { Navigate } from "react-router-dom";
-import useTodolistList from "./hook/useTodolistList";
+import useTodolistList from "../../common/hook/useTodolistList";
 import styles from "./TodolistsList.module.css";
 
 type TodolistsListType = {

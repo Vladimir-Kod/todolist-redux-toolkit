@@ -7,15 +7,13 @@ import {
   TaskStatuses,
   TaskType,
   UpdateTaskModelType,
-} from "api/todolists-api";
+} from "common/api/todolists-api";
 import { AppThunk } from "app/store";
 import { appActions, RequestStatusType } from "app/app-reducer";
 import { todolistsActions } from "features/TodolistsList/todolists-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { clearTasksAndTodolists } from "common/actions/common.action";
-import { createAppAsyncThunk } from "utils/create-app-async-thunk";
-import { handleServerNetworkError } from "utils/handle-server-network-error";
-import { handleServerAppError } from "utils/handle-server-app-error";
+import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
 
 const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[]; todolistId: string }, string>(
   "tasks/fetchTasks",

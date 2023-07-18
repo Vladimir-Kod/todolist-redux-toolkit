@@ -1,7 +1,7 @@
 import { useCallback } from "react";
-import { TaskStatuses } from "api/todolists-api";
-import { TaskTypeWithEntityTaskStatusType } from "../../tasks-reducer";
-import { FilterValuesType } from "../../todolists-reducer";
+import { TaskStatuses } from "common/api/todolists-api";
+import { TaskTypeWithEntityTaskStatusType } from "features/TodolistsList/tasks-reducer";
+import { FilterValuesType } from "features/TodolistsList/todolists-reducer";
 
 const useTodolist = (
   propsAddTask: (title: string, todolistId: string) => void,

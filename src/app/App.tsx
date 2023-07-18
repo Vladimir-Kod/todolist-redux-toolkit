@@ -9,14 +9,14 @@ import Container from "@mui/material/Container";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useAppDispatch, useAppSelector } from "./store";
 import { RequestStatusType } from "./app-reducer";
-import { ErrorSnackbar } from "components/ErrorSnackbar/ErrorSnackbar";
+import { ErrorSnackbar } from "common/components/ErrorSnackbar/ErrorSnackbar";
 import { Login } from "features/Login/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { authMeTC, logOutTC } from "features/Login/Login-auth-reducer";
 import CircularProgress from "@mui/material/CircularProgress";
 import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
-import { selectIsInitialized, selectStatus } from "app/app-selectors";
-import { selectIsLoggedIn } from "features/Login/login-selectors";
+import { selectIsInitialized, selectStatus } from "common/selectors/app-selectors";
+import { selectIsLoggedIn } from "common/selectors/login-selectors";
 
 function App() {
   const status = useAppSelector<RequestStatusType>(selectStatus);
