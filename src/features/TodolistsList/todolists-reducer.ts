@@ -36,6 +36,28 @@ const removeTodolist = createAppAsyncThunk<removeTodolistArgsType, removeTodolis
   }
 );
 
+const addTodolist = createAppAsyncThunk<any, { title: string }>("todolists/addTodolist", async (arg, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI;
+  try {
+    dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
+    dispatch(appActions.setAddTodoListStatus({ todoListStatus: "loading" }));
+    const res = await todolistsAPI.createTodolist(arg.title);
+    if (res.data.resultCode === ResultCode.OK) {
+      dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
+      dispatch(appActions.setAddTodoListStatus({ todoListStatus: "succeeded" }));
+      return { todolist: res.data.data.item };
+    } else {
+      handleServerAppError<{ item: TodolistType }>(res.data, dispatch);
+      dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
+      dispatch(appActions.setAddTodoListStatus({ todoListStatus: "failed" }));
+      return rejectWithValue(null);
+    }
+  } catch (e) {
+    handleServerNetworkError(e, dispatch);
+    return rejectWithValue(null);
+  }
+});
+
 // const fetchTodolists = createAppAsyncThunk<any,{ todolists: TodolistType[] }>("todolist/fetchTodolists",
 //   async (arg, thunkAPI)=>{
 //   const {dispatch, rejectWithValue,} = thunkAPI
@@ -82,9 +104,6 @@ const slice = createSlice({
   name: "todolist",
   initialState: [] as TodolistDomainType[],
   reducers: {
-    addTodolist: (state, action: PayloadAction<{ todolist: TodolistType }>) => {
-      state.unshift({ ...action.payload.todolist, filter: "all", entityStatus: "idle" });
-    },
     changeTodolistTitle: (state, action: PayloadAction<{ id: string; title: string }>) => {
       const index = state.findIndex((todo) => todo.id === action.payload.id);
       if (index !== -1) state[index].title = action.payload.title;
@@ -103,6 +122,9 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(addTodolist.fulfilled, (state, action) => {
+        state.unshift({ ...action.payload.todolist, filter: "all", entityStatus: "idle" });
+      })
       .addCase(removeTodolist.fulfilled, (state, action) => {
         const index = state.findIndex((todo) => todo.id === action.payload.todolistId);
         if (index !== -1) state.splice(index, 1);
@@ -115,37 +137,8 @@ const slice = createSlice({
 
 export const todolistsReducer = slice.reducer;
 export const todolistsActions = slice.actions;
-export const todolistsThunks = { removeTodolist };
+export const todolistsThunks = { removeTodolist, addTodolist };
 
-// thunks
-
-export const addTodolistTC = (title: string): AppThunk => {
-  return async (dispatch) => {
-    dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
-    dispatch(appActions.setAddTodoListStatus({ todoListStatus: "loading" }));
-    try {
-      const res = await todolistsAPI.createTodolist(title);
-      if (res.data.resultCode === ResultCode.OK) {
-        dispatch(todolistsActions.addTodolist({ todolist: res.data.data.item }));
-        dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
-        dispatch(appActions.setAddTodoListStatus({ todoListStatus: "succeeded" }));
-      } else {
-        handleServerAppError<{ item: TodolistType }>(res.data, dispatch);
-        dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
-        dispatch(appActions.setAddTodoListStatus({ todoListStatus: "failed" }));
-      }
-    } catch (e) {
-      if (axios.isAxiosError<ErrorsType>(e)) {
-        const errorMessage = e.response ? e.response.data.message : e.message;
-        handleServerNetworkError(errorMessage, dispatch);
-      } else {
-        const error = (e as Error).message;
-        handleServerNetworkError(error, dispatch);
-      }
-      dispatch(appActions.setAddTodoListStatus({ todoListStatus: "failed" }));
-    }
-  };
-};
 export const changeTodolistTitleTC = (id: string, title: string): AppThunk => {
   return async (dispatch) => {
     dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));

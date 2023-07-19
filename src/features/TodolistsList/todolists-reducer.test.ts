@@ -20,7 +20,8 @@ describe("todolists reducer", () => {
 
   it("should handle addTodolist action correctly", () => {
     const newTodolist = { id: "3", title: "Todo 3", addedDate: "", order: 0, filter: "all", entityStatus: "idle" };
-    const action = todolistsActions.addTodolist({ todolist: newTodolist });
+    const arg = { todolist: newTodolist };
+    const action = todolistsThunks.addTodolist.fulfilled(arg, "requestid", { title: "123" });
     const newState = todolistsReducer(initialState, action);
     expect(newState.length).toBe(3);
     expect(newState[0]).toEqual(newTodolist);
