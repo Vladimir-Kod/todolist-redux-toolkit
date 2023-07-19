@@ -1,6 +1,10 @@
 import { ChangeEvent, useState } from "react";
 
-const useEditableSpan = (propsValue: string, propsOnChange: (newValue: string) => void, propsStatus?: number) => {
+export const useEditableSpan = (
+  propsValue: string,
+  propsOnChange: (newValue: string) => void,
+  propsStatus?: number
+) => {
   let [editMode, setEditMode] = useState(false);
   let [title, setTitle] = useState(propsValue);
 
@@ -29,5 +33,3 @@ const useEditableSpan = (propsValue: string, propsOnChange: (newValue: string) =
     lineThrough,
   };
 };
-
-export default useEditableSpan;

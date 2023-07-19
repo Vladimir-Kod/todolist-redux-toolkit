@@ -1,5 +1,6 @@
 import { tasksActions, tasksReducer, TasksStateType, taskThanks } from "./tasks-reducer";
-import { TaskStatuses, TaskType } from "common/api/todolists-api";
+import { TaskStatuses } from "common/enums/common-enums";
+import { TaskType } from "features/TodolistsList/todolists-api";
 
 describe("tasks reducer", () => {
   let startState: TasksStateType = {};

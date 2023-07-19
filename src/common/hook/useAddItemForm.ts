@@ -1,6 +1,6 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
-const useAddItemForm = (propsAddItem: (title: string) => void) => {
+export const useAddItemForm = (propsAddItem: (title: string) => void) => {
   let [title, setTitle] = useState("");
   let [error, setError] = useState<string | null>(null);
 
@@ -33,5 +33,3 @@ const useAddItemForm = (propsAddItem: (title: string) => void) => {
     error,
   };
 };
-
-export default useAddItemForm;

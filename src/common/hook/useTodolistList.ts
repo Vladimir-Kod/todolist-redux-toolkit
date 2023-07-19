@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "app/store";
 import {
   addTodolistTC,
   changeTodolistTitleTC,
@@ -10,12 +9,14 @@ import {
 } from "features/TodolistsList/todolists-reducer";
 import { removeTaskTC, TasksStateType, taskThanks } from "features/TodolistsList/tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
-import { TaskStatuses } from "common/api/todolists-api";
-import { selectTasks, selectTodolists } from "common/selectors/useTodolistList-selectors";
-import { selectIsLoggedIn } from "common/selectors/login-selectors";
-import { selectAddTodolistStatus } from "common/selectors/app-selectors";
+import { selectTasks, selectTodolists } from "features/TodolistsList/useTodolistList-selectors";
+import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
+import { selectAddTodolistStatus } from "app/app-selectors";
+import { useAppSelector } from "common/hook/useAppSelector";
+import { useAppDispatch } from "common/hook/useAppDispatch";
+import { TaskStatuses } from "common/enums/common-enums";
 
-const useTodolistList = () => {
+export const useTodolistList = () => {
   const todolists = useAppSelector<Array<TodolistDomainType>>(selectTodolists);
   const tasks = useAppSelector<TasksStateType>(selectTasks);
   const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
@@ -75,5 +76,3 @@ const useTodolistList = () => {
     addTodolist,
   };
 };
-
-export default useTodolistList;

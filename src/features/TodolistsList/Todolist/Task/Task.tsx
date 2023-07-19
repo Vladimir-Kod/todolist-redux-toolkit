@@ -1,12 +1,12 @@
 import React from "react";
-import { EditableSpan } from "common/components/EditableSpan/EditableSpan";
-import { TaskStatuses } from "common/api/todolists-api";
 import { Delete } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import Checkbox from "@mui/material/Checkbox";
 import { TaskTypeWithEntityTaskStatusType } from "../../tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
-import useTask from "common/hook/useTask";
+import { useTask } from "common/hook";
+import { EditableSpan } from "common/components";
+import { TaskStatuses } from "common/enums/common-enums";
 
 type TaskPropsType = {
   task: TaskTypeWithEntityTaskStatusType;

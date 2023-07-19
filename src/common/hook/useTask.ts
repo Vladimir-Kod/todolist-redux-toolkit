@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback } from "react";
-import { TaskStatuses } from "common/api/todolists-api";
+import { TaskStatuses } from "common/enums/common-enums";
 
-const useTask = (
+export const useTask = (
   propsRemoveTask: (taskId: string, todolistId: string) => void,
   propsTaskId: string,
   propsTodolistId: string,
@@ -34,5 +34,3 @@ const useTask = (
     onChangeHandler,
   };
 };
-
-export default useTask;

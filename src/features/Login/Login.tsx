@@ -8,12 +8,13 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import { useAppDispatch, useAppSelector } from "app/store";
-import { loginTC } from "./Login-auth-reducer";
+import { loginTC } from "features/Login/login-auth-reducer";
 import { Navigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import styles from "./../TodolistsList/TodolistsList.module.css";
-import { selectIsLoggedIn } from "common/selectors/login-selectors";
+import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
+import { useAppSelector } from "common/hook/useAppSelector";
+import { useAppDispatch } from "common/hook/useAppDispatch";
 
 type FormikErrorType = {
   email?: string;

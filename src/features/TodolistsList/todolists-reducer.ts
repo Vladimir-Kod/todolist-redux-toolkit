@@ -1,4 +1,3 @@
-import { ErrorsType, ResultCode, todolistsAPI, TodolistType } from "common/api/todolists-api";
 import { appActions, RequestStatusType } from "app/app-reducer";
 import { taskThanks } from "./tasks-reducer";
 import axios from "axios";
@@ -7,6 +6,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { clearTasksAndTodolists } from "common/actions/common.action";
 import { handleServerAppError } from "common/utils/handle-server-app-error";
 import { handleServerNetworkError } from "common/utils/handle-server-network-error";
+import { ResultCode } from "common/enums/common-enums";
+import { todolistsAPI, TodolistType } from "features/TodolistsList/todolists-api";
+import { ErrorsType } from "common/types";
 
 const slice = createSlice({
   name: "todolist",

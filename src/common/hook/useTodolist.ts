@@ -1,9 +1,9 @@
 import { useCallback } from "react";
-import { TaskStatuses } from "common/api/todolists-api";
 import { TaskTypeWithEntityTaskStatusType } from "features/TodolistsList/tasks-reducer";
 import { FilterValuesType } from "features/TodolistsList/todolists-reducer";
+import { TaskStatuses } from "common/enums/common-enums";
 
-const useTodolist = (
+export const useTodolist = (
   propsAddTask: (title: string, todolistId: string) => void,
   propsID: string,
   propsRemoveTodolist: (id: string) => void,
@@ -54,5 +54,3 @@ const useTodolist = (
     tasksForTodolist,
   };
 };
-
-export default useTodolist;
