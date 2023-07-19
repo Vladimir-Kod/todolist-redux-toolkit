@@ -1,4 +1,4 @@
-import { todolistsReducer, todolistsActions, TodolistDomainType } from "./todolists-reducer";
+import { todolistsReducer, todolistsActions, TodolistDomainType, todolistsThunks } from "./todolists-reducer";
 
 describe("todolists reducer", () => {
   let initialState: TodolistDomainType[];
@@ -11,7 +11,8 @@ describe("todolists reducer", () => {
   });
 
   it("should handle removeTodolist action correctly", () => {
-    const action = todolistsActions.removeTodolist({ id: "1" });
+    const arg = { todolistId: "1" };
+    const action = todolistsThunks.removeTodolist.fulfilled(arg, "requestid", arg);
     const newState = todolistsReducer(initialState, action);
     expect(newState.length).toBe(1);
     expect(newState[0].id).toBe("2");
