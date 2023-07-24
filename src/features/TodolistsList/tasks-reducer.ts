@@ -98,31 +98,36 @@ const updateTask = createAppAsyncThunk<argsUpdateTaskType, argsUpdateTaskType>(
   }
 );
 
-const removeTask = createAppAsyncThunk<any, removeTaskArgsType>("tasks/removeTask", async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
-  try {
-    dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
-    dispatch(
-      tasksActions.setEntityTaskStatus({ todolistId: arg.todolistId, taskId: arg.taskId, newStatus: "loading" })
-    );
-    const res = await taskAPI.deleteTask(arg.todolistId, arg.taskId);
+const removeTask = createAppAsyncThunk<removeTaskArgsType, removeTaskArgsType>(
+  "tasks/removeTask",
+  async (arg, thunkAPI) => {
+    const { dispatch, rejectWithValue } = thunkAPI;
+    try {
+      dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
+      dispatch(
+        tasksActions.setEntityTaskStatus({ todolistId: arg.todolistId, taskId: arg.taskId, newStatus: "loading" })
+      );
+      const res = await taskAPI.deleteTask(arg.todolistId, arg.taskId);
 
-    if (res.data.resultCode === ResultCode.OK) {
-      dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
-      return arg;
-    } else {
-      handleServerAppError<{}>(res.data, dispatch);
+      if (res.data.resultCode === ResultCode.OK) {
+        dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
+        return arg;
+      } else {
+        handleServerAppError<{}>(res.data, dispatch);
+        dispatch(
+          tasksActions.setEntityTaskStatus({ todolistId: arg.todolistId, taskId: arg.taskId, newStatus: "failed" })
+        );
+        return rejectWithValue(null);
+      }
+    } catch (e) {
+      handleServerNetworkError(e, dispatch);
       dispatch(
         tasksActions.setEntityTaskStatus({ todolistId: arg.todolistId, taskId: arg.taskId, newStatus: "failed" })
       );
       return rejectWithValue(null);
     }
-  } catch (e) {
-    handleServerNetworkError(e, dispatch);
-    dispatch(tasksActions.setEntityTaskStatus({ todolistId: arg.todolistId, taskId: arg.taskId, newStatus: "failed" }));
-    return rejectWithValue(null);
   }
-});
+);
 
 const slice = createSlice({
   name: "tasks",
