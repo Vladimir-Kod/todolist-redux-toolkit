@@ -1,6 +1,5 @@
 import { useCallback } from "react";
 import {
-  changeTodolistTitleTC,
   FilterValuesType,
   TodolistDomainType,
   todolistsActions,
@@ -49,8 +48,7 @@ export const useTodolistList = () => {
   }, []);
 
   const changeTodolistTitle = useCallback(function (id: string, title: string) {
-    const thunk = changeTodolistTitleTC(id, title);
-    dispatch(thunk);
+    dispatch(todolistsThunks.changeTodolistTitle({ id, title }));
   }, []);
 
   const addTodolist = useCallback((title: string) => {

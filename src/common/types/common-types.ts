@@ -26,3 +26,8 @@ export type removeTaskArgsType = {
 export type removeTodolistArgsType = {
   todolistId: string;
 };
+
+export type changeTodolistTitleArgsType = {
+  id: string;
+  title: string;
+};

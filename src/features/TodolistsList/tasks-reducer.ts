@@ -4,7 +4,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { clearTasksAndTodolists } from "common/actions/common.action";
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
 import { ResultCode, TaskPriorities, TaskStatuses } from "common/enums";
-import { AddTaskArgType, taskAPI, TaskType, UpdateTaskModelType } from "features/TodolistsList/todolists-api";
+import {
+  AddTaskArgType,
+  taskAPI,
+  TaskType,
+  TodolistType,
+  UpdateTaskModelType,
+} from "features/TodolistsList/todolists-api";
 import { argsUpdateTaskType, removeTaskArgsType } from "common/types";
 
 const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[]; todolistId: string }, string>(
@@ -133,6 +139,11 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(todolistsThunks.fetchTodolists.fulfilled, (state, action) => {
+        action.payload.todolists.forEach((tl: TodolistType) => {
+          state[tl.id] = [];
+        });
+      })
       .addCase(removeTask.fulfilled, (state, action) => {
         const taskForCurrentTodolist = state[action.payload.todolistId];
         const index = taskForCurrentTodolist.findIndex((task) => task.id === action.payload.taskId);
@@ -156,9 +167,9 @@ const slice = createSlice({
       .addCase(todolistsThunks.removeTodolist.fulfilled, (state, action) => {
         delete state[action.payload.todolistId];
       })
-      .addCase(todolistsActions.setTodolists, (state, action) => {
-        action.payload.todolists.forEach((tl) => (state[tl.id] = []));
-      })
+      // .addCase(todolistsActions.setTodolists, (state, action) => {
+      //   action.payload.todolists.forEach((tl) => (state[tl.id] = []));
+      // })
       .addCase(clearTasksAndTodolists.type, () => {
         return {};
       });

@@ -29,7 +29,8 @@ describe("todolists reducer", () => {
 
   it("should handle changeTodolistTitle action correctly", () => {
     const newTitle = "New title";
-    const action = todolistsActions.changeTodolistTitle({ id: "1", title: newTitle });
+    const arg = { id: "1", title: newTitle };
+    const action = todolistsThunks.changeTodolistTitle.fulfilled(arg, "requestid", arg);
     const newState = todolistsReducer(initialState, action);
     expect(newState[0].title).toBe(newTitle);
   });
@@ -53,7 +54,7 @@ describe("todolists reducer", () => {
       { id: "3", title: "Todo 3", addedDate: "", order: 0, filter: "all", entityStatus: "idle" },
       { id: "4", title: "Todo 4", addedDate: "", order: 0, filter: "all", entityStatus: "idle" },
     ];
-    const action = todolistsActions.setTodolists({ todolists: newTodolists });
+    const action = todolistsThunks.fetchTodolists.fulfilled({ todolists: newTodolists }, "requestid");
     const newState = todolistsReducer(initialState, action);
     expect(newState.length).toBe(2);
     expect(newState[0]).toEqual(newTodolists[0]);

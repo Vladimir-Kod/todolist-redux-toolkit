@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { fetchTodolistsTC } from "./todolists-reducer";
 import { Todolist } from "./Todolist/Todolist";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -8,6 +7,7 @@ import { Navigate } from "react-router-dom";
 import styles from "./TodolistsList.module.css";
 import { useTodolistList } from "common/hook";
 import { AddItemForm } from "common/components";
+import { todolistsThunks } from "features/TodolistsList/todolists-reducer";
 
 type TodolistsListType = {
   status: RequestStatusType;
@@ -33,7 +33,7 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
     if (!isLoggedIn) {
       return;
     }
-    dispatch(fetchTodolistsTC());
+    dispatch(todolistsThunks.fetchTodolists());
   }, []);
 
   if (!isLoggedIn) {
