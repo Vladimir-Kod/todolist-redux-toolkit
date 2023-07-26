@@ -10,7 +10,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { RequestStatusType } from "./app-reducer";
 import { Login } from "features/Login/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { authMeTC, logOutTC } from "features/Login/login-auth-reducer";
+import { authMeTC, authThunk } from "features/Login/login-auth-reducer";
 import CircularProgress from "@mui/material/CircularProgress";
 import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
 import { selectIsInitialized, selectStatus } from "app/app-selectors";
@@ -25,7 +25,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   const logOut = () => {
-    dispatch(logOutTC());
+    dispatch(authThunk.logOut());
   };
 
   useEffect(() => {

@@ -25,23 +25,23 @@ import { AppThunk } from "app/store";
 //     }
 //   };
 
-export const logOutTC = (): AppThunk => async (dispatch) => {
-  dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
-  try {
-    const res = await authAPI.logOut();
-    if (res.data.resultCode === ResultCode.OK) {
-      dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
-      dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
-      dispatch(clearTasksAndTodolists());
-    } else {
-      handleServerAppError<{}>(res.data, dispatch);
-      dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
-    }
-  } catch (e) {
-    handleServerNetworkError((e as any).message, dispatch);
-    dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
-  }
-};
+// export const logOutTC = (): AppThunk => async (dispatch) => {
+//   dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
+//   try {
+//     const res = await authAPI.logOut();
+//     if (res.data.resultCode === ResultCode.OK) {
+//       dispatch(authActions.setIsLoggedIn({ isLoggedIn: false }));
+//       dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
+//       dispatch(clearTasksAndTodolists());
+//     } else {
+//       handleServerAppError<{}>(res.data, dispatch);
+//       dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
+//     }
+//   } catch (e) {
+//     handleServerNetworkError((e as any).message, dispatch);
+//     dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
+//   }
+// };
 
 export const authMeTC = (): AppThunk => async (dispatch) => {
   dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
@@ -81,25 +81,25 @@ export const authMeTC = (): AppThunk => async (dispatch) => {
 //   }
 // });
 //
-// const logOut = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logOut", async (arg, thunkAPI) => {
-//   const { dispatch, rejectWithValue } = thunkAPI;
-//   try {
-//     dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
-//     const res = await authAPI.logOut();
-//     if (res.data.resultCode === ResultCode.OK) {
-//       dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
-//       dispatch(clearTasksAndTodolists());
-//       return { isLoggedIn: false };
-//     } else {
-//       handleServerAppError<{}>(res.data, dispatch);
-//       // dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
-//       return rejectWithValue(null);
-//     }
-//   } catch (e) {
-//     handleServerNetworkError(e, dispatch);
-//     return rejectWithValue(null);
-//   }
-// });
+const logOut = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logOut", async (arg, thunkAPI) => {
+  const { dispatch, rejectWithValue } = thunkAPI;
+  try {
+    dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
+    const res = await authAPI.logOut();
+    if (res.data.resultCode === ResultCode.OK) {
+      dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
+      dispatch(clearTasksAndTodolists());
+      return { isLoggedIn: false };
+    } else {
+      handleServerAppError<{}>(res.data, dispatch);
+      // dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
+      return rejectWithValue(null);
+    }
+  } catch (e) {
+    handleServerNetworkError(e, dispatch);
+    return rejectWithValue(null);
+  }
+});
 
 const login = createAppAsyncThunk<{ isLoggedIn: boolean }, AuthRequestType>("auth/login", async (arg, thunkAPI) => {
   const { dispatch, rejectWithValue } = thunkAPI;
@@ -132,12 +132,13 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, action) => {
-      state.isLoggedIn = action.payload.isLoggedIn;
-    });
-    // .addCase(logOut.fulfilled, (state, action) => {
-    //   state.isLoggedIn = action.payload.isLoggedIn;
-    // })
+    builder
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload.isLoggedIn;
+      })
+      .addCase(logOut.fulfilled, (state, action) => {
+        state.isLoggedIn = action.payload.isLoggedIn;
+      });
     // .addCase(authMe.fulfilled, (state, action) => {
     //   state.isLoggedIn = action.payload.isLoggedIn;
     // });
@@ -147,4 +148,4 @@ const slice = createSlice({
 export const loginAuthReducer = slice.reducer;
 
 export const authActions = slice.actions;
-export const authThunk = { login };
+export const authThunk = { login, logOut };
