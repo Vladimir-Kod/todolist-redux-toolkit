@@ -8,13 +8,13 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import { loginTC } from "features/Login/login-auth-reducer";
 import { Navigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import styles from "./../TodolistsList/TodolistsList.module.css";
 import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";
 import { useAppDispatch } from "common/hook/useAppDispatch";
+import { authThunk } from "features/Login/login-auth-reducer";
 
 type FormikErrorType = {
   email?: string;
@@ -49,7 +49,7 @@ export const Login = () => {
     },
     validate,
     onSubmit: (values) => {
-      dispatch(loginTC(values));
+      dispatch(authThunk.login(values));
       formik.resetForm();
     },
   });
