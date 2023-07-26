@@ -12,7 +12,6 @@ const authMe = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/authMe",
     if (res.data.resultCode === ResultCode.OK) {
       return { isLoggedIn: true };
     } else {
-      handleServerAppError<{}>(res.data, dispatch);
       return rejectWithValue(null);
     }
   } catch (e) {
