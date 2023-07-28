@@ -1,9 +1,14 @@
 import { UpdateDomainTaskModelType } from "features/TodolistsList/tasks-reducer";
 
+export type FieldErrorType = {
+  error: string;
+  field: string;
+};
+
 export type ResponseType<D = {}> = {
   resultCode: number;
   messages: Array<string>;
-  fieldsErrors: Array<string>;
+  fieldsErrors: FieldErrorType[];
   data: D;
 };
 

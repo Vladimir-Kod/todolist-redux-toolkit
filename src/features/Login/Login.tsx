@@ -7,7 +7,7 @@ import FormGroup from "@mui/material/FormGroup";
 import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import { Navigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import styles from "./../TodolistsList/TodolistsList.module.css";
@@ -15,6 +15,8 @@ import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";
 import { useAppDispatch } from "common/hook/useAppDispatch";
 import { authThunk } from "features/Login/login-auth-reducer";
+import { AuthRequestType } from "features/Login/login-auth-api";
+import { ResponseType } from "common/types";
 
 type FormikErrorType = {
   email?: string;
@@ -48,9 +50,14 @@ export const Login = () => {
       rememberMe: false,
     },
     validate,
-    onSubmit: (values) => {
-      dispatch(authThunk.login(values));
-      formik.resetForm();
+    onSubmit: (values, formikHelpers: FormikHelpers<AuthRequestType>) => {
+      dispatch(authThunk.login(values))
+        .unwrap()
+        .catch((reason: ResponseType) => {
+          reason.fieldsErrors.forEach((fieldErrors) => {
+            formikHelpers.setFieldError(fieldErrors.field, fieldErrors.error);
+          });
+        });
     },
   });
 
