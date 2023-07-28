@@ -5,3 +5,4 @@ export { useTodolist } from "common/hook/useTodolist";
 export { useTodolistList } from "common/hook/useTodolistList";
 export { useAddItemForm } from "common/hook/useAddItemForm";
 export { useEditableSpan } from "common/hook/useEditableSpan";
+export { useActions } from "common/hook/useActions";

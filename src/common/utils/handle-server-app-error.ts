@@ -16,5 +16,5 @@ export const handleServerAppError = <T>(data: ResponseType<T>, dispatch: Dispatc
   if (showError) {
     dispatch(appActions.setError({ error: data.messages.length ? data.messages[0] : "Some error occurred" }));
   }
-  // dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
+  dispatch(appActions.setRequestStatus({ requestStatus: "failed" }));
 };

@@ -15,21 +15,22 @@ import CircularProgress from "@mui/material/CircularProgress";
 import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
 import { selectIsInitialized, selectStatus } from "app/app-selectors";
 import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
-import { useAppDispatch, useAppSelector } from "common/hook";
+import { useActions, useAppSelector } from "common/hook";
 import { ErrorSnackbar } from "common/components";
 
 function App() {
   const status = useAppSelector<RequestStatusType>(selectStatus);
   const isInitialized = useAppSelector<boolean>(selectIsInitialized);
   const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
-  const dispatch = useAppDispatch();
 
-  const logOut = () => {
-    dispatch(authThunk.logOut());
+  const { logOut, authMe } = useActions(authThunk);
+
+  const logOutHandler = () => {
+    logOut();
   };
 
   useEffect(() => {
-    dispatch(authThunk.authMe());
+    authMe();
   }, []);
 
   if (!isInitialized) {
@@ -49,7 +50,7 @@ function App() {
           </Typography>
 
           {isLoggedIn && (
-            <Button color="inherit" onClick={logOut}>
+            <Button color="inherit" onClick={logOutHandler}>
               <LogoutTwoToneIcon />
             </Button>
           )}
