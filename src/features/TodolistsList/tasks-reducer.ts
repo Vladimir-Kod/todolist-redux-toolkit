@@ -53,7 +53,8 @@ const updateTask = createAppAsyncThunk<argsUpdateTaskType, argsUpdateTaskType>(
   "tasks/updateTask",
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue, getState } = thunkAPI;
-    try {
+
+    return thunkTryCatch(thunkAPI, async () => {
       dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
       dispatch(
         tasksActions.setEntityTaskStatus({ todolistId: arg.todolistId, taskId: arg.taskId, newStatus: "loading" })
@@ -79,19 +80,18 @@ const updateTask = createAppAsyncThunk<argsUpdateTaskType, argsUpdateTaskType>(
 
       const res = await taskAPI.updateTask(arg.todolistId, arg.taskId, apiModel);
       if (res.data.resultCode === ResultCode.OK) {
-        dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
         dispatch(
           tasksActions.setEntityTaskStatus({ todolistId: arg.todolistId, taskId: arg.taskId, newStatus: "succeeded" })
         );
         return arg;
       } else {
+        dispatch(
+          tasksActions.setEntityTaskStatus({ todolistId: arg.todolistId, taskId: arg.taskId, newStatus: "failed" })
+        );
         handleServerAppError<{ item: TaskType }>(res.data, dispatch);
         return rejectWithValue(null);
       }
-    } catch (e) {
-      handleServerNetworkError(e, dispatch);
-      return rejectWithValue(null);
-    }
+    });
   }
 );
 
