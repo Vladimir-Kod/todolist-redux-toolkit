@@ -18,7 +18,7 @@ import { AuthRequestType } from "features/Login/login-auth-api";
 import { ResponseType } from "common/types";
 import {useActions} from "../../common/hook";
 
-type FormikErrorType = Partial<AuthRequestType>
+type FormikErrorType = Partial<Omit<AuthRequestType,'captcha'>>
 
 const validate = (values: any) => {
   const errors: FormikErrorType = {};
