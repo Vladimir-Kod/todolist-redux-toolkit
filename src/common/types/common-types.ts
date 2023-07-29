@@ -1,4 +1,4 @@
-import { UpdateDomainTaskModelType } from "features/TodolistsList/tasks-reducer";
+import { UpdateDomainTaskModelType } from "features/todolistsList/tasks/model/tasks-reducer";
 
 export type FieldErrorType = {
   error: string;

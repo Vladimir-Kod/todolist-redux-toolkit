@@ -1,17 +1,13 @@
 import { appActions, RequestStatusType } from "app/app-reducer";
-import { todolistsActions, todolistsThunks } from "features/TodolistsList/todolists-reducer";
+import { todolistsActions, todolistsThunks } from "features/todolistsList/todolists/model/todolists-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { clearTasksAndTodolists } from "common/actions/common.action";
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
 import { ResultCode, TaskPriorities, TaskStatuses } from "common/enums";
-import {
-  AddTaskArgType,
-  taskAPI,
-  TaskType,
-  TodolistType,
-  UpdateTaskModelType,
-} from "features/TodolistsList/todolists-api";
 import { argsUpdateTaskType, removeTaskArgsType } from "common/types";
+import {taskAPI} from "../api/tasks-api";
+import {AddTaskArgType, TaskType, UpdateTaskModelType} from "../api/tasks-api-type";
+import {TodolistType} from "../../todolists/api/todolists-api-type";
 
 const fetchTasks = createAppAsyncThunk<{ tasks: TaskType[]; todolistId: string }, string>(
   "tasks/fetchTasks",
@@ -67,7 +63,7 @@ const updateTask = createAppAsyncThunk<argsUpdateTaskType, argsUpdateTaskType>(
         const task = state.tasks[arg.todolistId].find((t) => t.id === arg.taskId);
 
         if (!task) {
-          dispatch(appActions.setError({ error: "Task not found in the state" }));
+          dispatch(appActions.setError({ error: "task not found in the state" }));
           return rejectWithValue(null);
         }
 

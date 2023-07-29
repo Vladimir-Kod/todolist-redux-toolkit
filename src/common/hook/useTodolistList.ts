@@ -4,10 +4,10 @@ import {
   TodolistDomainType,
   todolistsActions,
   todolistsThunks,
-} from "features/TodolistsList/todolists-reducer";
-import { TasksStateType, taskThanks } from "features/TodolistsList/tasks-reducer";
+} from "features/todolistsList/todolists/model/todolists-reducer";
+import { TasksStateType, taskThanks } from "features/todolistsList/tasks/model/tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
-import { selectTasks, selectTodolists } from "features/TodolistsList/useTodolistList-selectors";
+import { selectTasks, selectTodolists } from "features/todolistsList/useTodolistList-selectors";
 import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
 import { selectAddTodolistStatus } from "app/app-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";

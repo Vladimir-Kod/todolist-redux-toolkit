@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { TodolistsList } from "features/TodolistsList/TodolistsList";
+import { TodolistsList } from "features/todolistsList/todolistsList";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";

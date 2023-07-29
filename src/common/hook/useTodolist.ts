@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
-import { taskThanks, TaskTypeWithEntityTaskStatusType } from "features/TodolistsList/tasks-reducer";
-import { FilterValuesType } from "features/TodolistsList/todolists-reducer";
+import { taskThanks, TaskTypeWithEntityTaskStatusType } from "features/todolistsList/tasks/model/tasks-reducer";
+import { FilterValuesType } from "features/todolistsList/todolists/model/todolists-reducer";
 import { TaskStatuses } from "common/enums/common-enums";
 import {useActions} from "./useActions";
 

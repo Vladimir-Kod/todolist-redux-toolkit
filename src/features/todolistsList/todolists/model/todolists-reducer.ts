@@ -4,9 +4,10 @@ import { clearTasksAndTodolists } from "common/actions/common.action";
 import { handleServerAppError } from "common/utils/handle-server-app-error";
 import { handleServerNetworkError } from "common/utils/handle-server-network-error";
 import { ResultCode } from "common/enums/common-enums";
-import { todolistsAPI, TodolistType } from "features/TodolistsList/todolists-api";
+import { todolistsAPI } from "features/todolistsList/todolists/api/todolists-api";
 import { changeTodolistTitleArgsType, removeTodolistArgsType } from "common/types";
 import { createAppAsyncThunk } from "common/utils";
+import {TodolistType} from "../api/todolists-api-type";
 
 const changeTodolistTitle = createAppAsyncThunk<changeTodolistTitleArgsType, changeTodolistTitleArgsType>(
   "todolists/changeTodolistTitle",

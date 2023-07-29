@@ -1,12 +1,12 @@
 import React from "react";
-import { Task } from "./Task/Task";
-import { FilterValuesType } from "../todolists-reducer";
-import { TaskTypeWithEntityTaskStatusType } from "../tasks-reducer";
+import { Task } from "../task/task";
+import { FilterValuesType } from "../../model/todolists-reducer";
+import { TaskTypeWithEntityTaskStatusType } from "../../../tasks/model/tasks-reducer";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import { Delete } from "@mui/icons-material";
 import { RequestStatusType } from "app/app-reducer";
-import styles from "./Todolist.module.css";
+import styles from "./todolist.module.css";
 import { useTodolist } from "common/hook";
 import { AddItemForm, EditableSpan } from "common/components";
 import { TaskStatuses } from "common/enums/common-enums";
@@ -27,7 +27,7 @@ type PropsType = {
 };
 
 export const Todolist = React.memo(function (props: PropsType) {
-  console.log("Todolist called");
+  console.log("todolist called");
   const {
     addTask,
     removeTodolist,
