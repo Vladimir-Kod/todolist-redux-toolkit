@@ -20,7 +20,6 @@ export const useTodolist = (
     [propsAddTask, propsID]
   );
 
-  // const dispatch = useAppDispatch();
   const {fetchTasks} = useActions(taskThanks)
 
   useEffect(() => {
