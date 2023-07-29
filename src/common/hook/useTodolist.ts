@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { taskThanks, TaskTypeWithEntityTaskStatusType } from "features/TodolistsList/tasks-reducer";
 import { FilterValuesType } from "features/TodolistsList/todolists-reducer";
 import { TaskStatuses } from "common/enums/common-enums";
-import { useAppDispatch } from "common/hook/useAppDispatch";
+import {useActions} from "./useActions";
 
 export const useTodolist = (
   propsAddTask: (title: string, todolistId: string) => void,
@@ -20,9 +20,11 @@ export const useTodolist = (
     [propsAddTask, propsID]
   );
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+  const {fetchTasks} = useActions(taskThanks)
+
   useEffect(() => {
-    dispatch(taskThanks.fetchTasks(propsID));
+    fetchTasks(propsID);
   }, []);
 
   const removeTodolist = () => {
