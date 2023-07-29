@@ -29,4 +29,5 @@ export type AuthRequestType = {
   email: string;
   password: string;
   rememberMe: boolean;
+  captcha?: string
 };

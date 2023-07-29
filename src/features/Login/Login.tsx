@@ -18,11 +18,7 @@ import { AuthRequestType } from "features/Login/login-auth-api";
 import { ResponseType } from "common/types";
 import {useActions} from "../../common/hook";
 
-type FormikErrorType = {
-  email?: string;
-  password?: string;
-  rememberMe?: boolean;
-};
+type FormikErrorType = Partial<AuthRequestType>
 
 const validate = (values: any) => {
   const errors: FormikErrorType = {};
