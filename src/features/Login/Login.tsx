@@ -13,10 +13,10 @@ import Paper from "@mui/material/Paper";
 import styles from "./../TodolistsList/TodolistsList.module.css";
 import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";
-import { useAppDispatch } from "common/hook/useAppDispatch";
 import { authThunk } from "features/Login/login-auth-reducer";
 import { AuthRequestType } from "features/Login/login-auth-api";
 import { ResponseType } from "common/types";
+import {useActions} from "../../common/hook";
 
 type FormikErrorType = {
   email?: string;
@@ -41,7 +41,8 @@ const validate = (values: any) => {
 
 export const Login = () => {
   const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
-  const dispatch = useAppDispatch();
+
+  const {login} = useActions(authThunk)
 
   const formik = useFormik({
     initialValues: {
@@ -51,7 +52,7 @@ export const Login = () => {
     },
     validate,
     onSubmit: (values, formikHelpers: FormikHelpers<AuthRequestType>) => {
-      dispatch(authThunk.login(values))
+      login(values)
         .unwrap()
         .catch((reason: ResponseType) => {
           reason.fieldsErrors?.forEach((fieldErrors) => {

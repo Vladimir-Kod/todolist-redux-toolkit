@@ -26,11 +26,11 @@ function App() {
   const { logOut, authMe } = useActions(authThunk);
 
   const logOutHandler = () => {
-    logOut();
+    logOut({});
   };
 
   useEffect(() => {
-    authMe();
+    authMe({});
   }, []);
 
   if (!isInitialized) {
