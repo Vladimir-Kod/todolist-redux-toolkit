@@ -1,5 +1,5 @@
 import React from "react";
-import { Task } from "../task/task";
+import { Task } from "../../../tasks/ui/task";
 import { FilterValuesType } from "../../model/todolists-reducer";
 import { TaskTypeWithEntityTaskStatusType } from "../../../tasks/model/tasks-reducer";
 import IconButton from "@mui/material/IconButton";
@@ -19,7 +19,7 @@ type PropsType = {
   addTask: (title: string, todolistId: string) => void;
   changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void;
   changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void;
-  removeTask: (taskId: string, todolistId: string) => void;
+  // removeTask: (taskId: string, todolistId: string) => void;
   removeTodolist: (id: string) => void;
   changeTodolistTitle: (id: string, newTitle: string) => void;
   filter: FilterValuesType;
@@ -65,7 +65,6 @@ export const Todolist = React.memo(function (props: PropsType) {
             status={t.status}
             entityStatus={props.entityStatus}
             entityTaskStatus={t.entityTaskStatus}
-            removeTask={props.removeTask}
             changeTaskTitle={props.changeTaskTitle}
             changeTaskStatus={props.changeTaskStatus}
           />

@@ -7,7 +7,7 @@ import {
 } from "features/todolistsList/todolists/model/todolists-reducer";
 import { TasksStateType, taskThanks } from "features/todolistsList/tasks/model/tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
-import { selectTasks, selectTodolists } from "features/todolistsList/useTodolistList-selectors";
+import { selectTasks, selectTodolists } from "features/todolistsList/model/useTodolistList-selectors";
 import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
 import { selectAddTodolistStatus } from "app/app-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";
@@ -21,7 +21,6 @@ export const useTodolistList = () => {
   const addTodolistStatus = useAppSelector<RequestStatusType>(selectAddTodolistStatus);
 
   const {
-    removeTask: removeTaskThunk,
     addTask: addTaskThunk,
     updateTask,
     removeTodolist: removeTodolistThunk,
@@ -39,9 +38,9 @@ export const useTodolistList = () => {
     fetchTodolistsThunk({});
   }, []);
 
-  const removeTask = useCallback(function (taskId: string, todolistId: string) {
-    removeTaskThunk({ taskId, todolistId });
-  }, []);
+  // const removeTask = useCallback(function (taskId: string, todolistId: string) {
+  //   removeTaskThunk({ taskId, todolistId });
+  // }, []);
 
   const addTask = useCallback(function (title: string, todolistId: string) {
     addTaskThunk({ title, todolistId });
@@ -76,7 +75,6 @@ export const useTodolistList = () => {
     addTodolistStatus,
     tasks,
     todolists,
-    removeTask,
     addTask,
     changeStatus,
     changeTaskTitle,

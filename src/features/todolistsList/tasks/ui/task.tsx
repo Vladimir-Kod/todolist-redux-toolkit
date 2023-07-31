@@ -2,7 +2,7 @@ import React from "react";
 import { Delete } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import Checkbox from "@mui/material/Checkbox";
-import { TaskTypeWithEntityTaskStatusType } from "../../../tasks/model/tasks-reducer";
+import { TaskTypeWithEntityTaskStatusType } from "../model/tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
 import { useTask } from "common/hook";
 import { EditableSpan } from "common/components";
@@ -13,14 +13,12 @@ type TaskPropsType = {
   todolistId: string;
   changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void;
   changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void;
-  removeTask: (taskId: string, todolistId: string) => void;
   entityTaskStatus: RequestStatusType;
   entityStatus: RequestStatusType;
   status?: number;
 };
 export const Task = React.memo((props: TaskPropsType) => {
-  const { onClickHandler, onTitleChangeHandler, onChangeHandler } = useTask(
-    props.removeTask,
+  const { removeTaskHandler, onTitleChangeHandler, onChangeHandler } = useTask(
     props.task.id,
     props.todolistId,
     props.changeTaskStatus,
@@ -31,7 +29,7 @@ export const Task = React.memo((props: TaskPropsType) => {
     <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? "is-done" : ""}>
       <IconButton
         disabled={props.task.entityTaskStatus === "loading" || props.entityStatus === "loading"}
-        onClick={onClickHandler}
+        onClick={removeTaskHandler}
         color={"error"}
       >
         <Delete />

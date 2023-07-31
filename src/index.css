@@ -5,7 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-image: url("images/texture-colorful-bricks.jpg");
+  background-image: url('/src/assets/img/texture-colorful-bricks.jpg');
   height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;

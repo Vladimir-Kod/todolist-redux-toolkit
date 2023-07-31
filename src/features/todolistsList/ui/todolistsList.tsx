@@ -1,10 +1,10 @@
 import React from "react";
-import { Todolist } from "./todolists/todolist/model/todolist";
+import { Todolist } from "../todolists/todolist/ui/todolist";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { RequestStatusType } from "app/app-reducer";
 import { Navigate } from "react-router-dom";
-import styles from "./todolistsList.module.css";
+import styles from "../model/todolistsList.module.css";
 import { useTodolistList } from "common/hook";
 import { AddItemForm } from "common/components";
 
@@ -17,7 +17,6 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
     addTodolistStatus,
     tasks,
     todolists,
-    removeTask,
     addTask,
     changeStatus,
     changeTaskTitle,
@@ -50,7 +49,6 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
                   entityStatus={tl.entityStatus}
                   title={tl.title}
                   tasks={allTodolistTasks}
-                  removeTask={removeTask}
                   changeFilter={changeFilter}
                   addTask={addTask}
                   changeTaskStatus={changeStatus}

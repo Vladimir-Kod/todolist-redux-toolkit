@@ -1,17 +1,21 @@
 import { ChangeEvent, useCallback } from "react";
 import { TaskStatuses } from "common/enums/common-enums";
+import {useActions} from "./useActions";
+import {taskThanks} from "../../features/todolistsList/tasks/model/tasks-reducer";
 
 export const useTask = (
-  propsRemoveTask: (taskId: string, todolistId: string) => void,
   propsTaskId: string,
   propsTodolistId: string,
   propsChangeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void,
   propsChangeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
 ) => {
-  const onClickHandler = useCallback(
-    () => propsRemoveTask(propsTaskId, propsTodolistId),
-    [propsTaskId, propsTodolistId]
-  );
+
+  const {removeTask} = useActions(taskThanks)
+  const removeTaskHandler = () => {
+    removeTask({ taskId: propsTaskId, todolistId: propsTodolistId})
+  }
+
+
 
   const onChangeHandler = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +33,7 @@ export const useTask = (
   );
 
   return {
-    onClickHandler,
+    removeTaskHandler,
     onTitleChangeHandler,
     onChangeHandler,
   };
