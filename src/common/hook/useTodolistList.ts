@@ -20,7 +20,6 @@ export const useTodolistList = () => {
   const addTodolistStatus = useAppSelector<RequestStatusType>(selectAddTodolistStatus);
 
   const {
-    addTask: addTaskThunk,
     removeTodolist: removeTodolistThunk,
     changeTodolistTitle: changeTodolistTitleThunk,
     addTodolist: addTodolistThunk,
@@ -40,9 +39,9 @@ export const useTodolistList = () => {
   //   removeTaskThunk({ taskId, todolistId });
   // }, []);
 
-  const addTask = useCallback(function (title: string, todolistId: string) {
-    addTaskThunk({ title, todolistId });
-  }, []);
+  // const addTask = useCallback(function (title: string, todolistId: string) {
+  //   addTaskThunk({ title, todolistId });
+  // }, []);
 
   // const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
   //   updateTask({ taskId, domainModel: { status }, todolistId });
@@ -73,7 +72,6 @@ export const useTodolistList = () => {
     addTodolistStatus,
     tasks,
     todolists,
-    addTask,
     changeFilter,
     removeTodolist,
     changeTodolistTitle,

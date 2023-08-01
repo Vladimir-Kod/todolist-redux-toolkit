@@ -13,7 +13,6 @@ export const useTask = (
         removeTask({taskId: propsTaskId, todolistId: propsTodolistId})
     }
 
-
     const changeCheckboxHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let status = e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New
         updateTask({
@@ -23,10 +22,9 @@ export const useTask = (
         });
     }
 
-
     const changeTaskTitleHandler =
-        (newTitle: string) => {
-            updateTask({taskId: propsTaskId, domainModel: {title: newTitle}, todolistId: propsTodolistId});
+        (title: string) => {
+            updateTask({taskId: propsTaskId, domainModel: {title}, todolistId: propsTodolistId});
         }
 
     return {

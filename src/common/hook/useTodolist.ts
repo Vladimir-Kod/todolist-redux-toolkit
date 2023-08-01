@@ -5,7 +5,6 @@ import { TaskStatuses } from "common/enums/common-enums";
 import {useActions} from "./useActions";
 
 export const useTodolist = (
-  propsAddTask: (title: string, todolistId: string) => void,
   propsID: string,
   propsRemoveTodolist: (id: string) => void,
   propsChangeTodolistTitle: (id: string, newTitle: string) => void,
@@ -13,14 +12,13 @@ export const useTodolist = (
   propsTasks: Array<TaskTypeWithEntityTaskStatusType>,
   propsFilter: FilterValuesType
 ) => {
-  const addTask = useCallback(
-    (title: string) => {
-      propsAddTask(title, propsID);
-    },
-    [propsAddTask, propsID]
-  );
 
-  const {fetchTasks} = useActions(taskThanks)
+  const {fetchTasks,addTask} = useActions(taskThanks)
+
+  const addTaskCallBack =
+    (title: string) => {
+      addTask({title, todolistId:propsID});
+    }
 
   useEffect(() => {
     fetchTasks(propsID);
@@ -52,7 +50,7 @@ export const useTodolist = (
     tasksForTodolist = propsTasks.filter((t) => t.status === TaskStatuses.Completed);
   }
   return {
-    addTask,
+    addTaskCallBack,
     removeTodolist,
     changeTodolistTitle,
     onAllClickHandler,

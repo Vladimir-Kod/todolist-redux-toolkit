@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC, memo} from "react";
 import { Delete } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import Checkbox from "@mui/material/Checkbox";
@@ -7,24 +7,25 @@ import { RequestStatusType } from "app/app-reducer";
 import { useTask } from "common/hook";
 import { EditableSpan } from "common/components";
 import { TaskStatuses } from "common/enums/common-enums";
+import s from"../../tasks/model/task.module.css"
 
-type TaskPropsType = {
+type Props = {
   task: TaskTypeWithEntityTaskStatusType;
   todolistId: string;
   entityTaskStatus: RequestStatusType;
   entityStatus: RequestStatusType;
   status?: number;
 };
-export const Task = React.memo((props: TaskPropsType) => {
+export const Task: FC<Props> = memo(({task,todolistId, entityTaskStatus, entityStatus }) => {
   const { removeTaskHandler, changeTaskTitleHandler, changeCheckboxHandler } = useTask(
-    props.task.id,
-    props.todolistId,
+    task.id,
+    todolistId,
   );
 
   return (
-    <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? "is-done" : ""}>
+    <div key={task.id} className={task.status === TaskStatuses.Completed ? s.isDone : ""}>
       <IconButton
-        disabled={props.task.entityTaskStatus === "loading" || props.entityStatus === "loading"}
+        disabled={entityTaskStatus === "loading" || entityStatus === "loading"}
         onClick={removeTaskHandler}
         color={"error"}
       >
@@ -32,16 +33,16 @@ export const Task = React.memo((props: TaskPropsType) => {
       </IconButton>
 
       <Checkbox
-        disabled={props.task.entityTaskStatus === "loading"}
-        checked={props.task.status === TaskStatuses.Completed}
+        disabled={task.entityTaskStatus === "loading"}
+        checked={task.status === TaskStatuses.Completed}
         color="primary"
         onChange={changeCheckboxHandler}
       />
 
       <EditableSpan
-        disabled={props.task.entityTaskStatus === "loading" || props.entityStatus === "loading"}
-        status={props.status}
-        value={props.task.title}
+        disabled={task.entityTaskStatus === "loading" || entityStatus === "loading"}
+        status={+status}
+        value={task.title}
         onChange={changeTaskTitleHandler}
       />
     </div>

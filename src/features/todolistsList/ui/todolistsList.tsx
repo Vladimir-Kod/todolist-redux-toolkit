@@ -17,7 +17,6 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
     addTodolistStatus,
     tasks,
     todolists,
-    addTask,
     changeFilter,
     removeTodolist,
     changeTodolistTitle,
@@ -48,7 +47,6 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
                   title={tl.title}
                   tasks={allTodolistTasks}
                   changeFilter={changeFilter}
-                  addTask={addTask}
                   filter={tl.filter}
                   removeTodolist={removeTodolist}
                   changeTodolistTitle={changeTodolistTitle}
