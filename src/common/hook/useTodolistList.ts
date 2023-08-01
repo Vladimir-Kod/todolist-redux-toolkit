@@ -11,7 +11,6 @@ import { selectTasks, selectTodolists } from "features/todolistsList/model/useTo
 import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
 import { selectAddTodolistStatus } from "app/app-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";
-import { TaskStatuses } from "common/enums/common-enums";
 import { useActions } from "common/hook/useActions";
 
 export const useTodolistList = () => {
@@ -22,7 +21,6 @@ export const useTodolistList = () => {
 
   const {
     addTask: addTaskThunk,
-    updateTask,
     removeTodolist: removeTodolistThunk,
     changeTodolistTitle: changeTodolistTitleThunk,
     addTodolist: addTodolistThunk,
@@ -46,13 +44,13 @@ export const useTodolistList = () => {
     addTaskThunk({ title, todolistId });
   }, []);
 
-  const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
-    updateTask({ taskId, domainModel: { status }, todolistId });
-  }, []);
+  // const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
+  //   updateTask({ taskId, domainModel: { status }, todolistId });
+  // }, []);
 
-  const changeTaskTitle = useCallback(function (taskId: string, title: string, todolistId: string) {
-    updateTask({ taskId, domainModel: { title }, todolistId });
-  }, []);
+  // const changeTaskTitle = useCallback(function (taskId: string, title: string, todolistId: string) {
+  //   updateTask({ taskId, domainModel: { title }, todolistId });
+  // }, []);
 
   const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
     changeTodolistFilter({ id: todolistId, filter: value });
@@ -76,8 +74,6 @@ export const useTodolistList = () => {
     tasks,
     todolists,
     addTask,
-    changeStatus,
-    changeTaskTitle,
     changeFilter,
     removeTodolist,
     changeTodolistTitle,

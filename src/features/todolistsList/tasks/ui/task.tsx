@@ -11,18 +11,14 @@ import { TaskStatuses } from "common/enums/common-enums";
 type TaskPropsType = {
   task: TaskTypeWithEntityTaskStatusType;
   todolistId: string;
-  changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void;
-  changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void;
   entityTaskStatus: RequestStatusType;
   entityStatus: RequestStatusType;
   status?: number;
 };
 export const Task = React.memo((props: TaskPropsType) => {
-  const { removeTaskHandler, onTitleChangeHandler, onChangeHandler } = useTask(
+  const { removeTaskHandler, changeTaskTitleHandler, changeCheckboxHandler } = useTask(
     props.task.id,
     props.todolistId,
-    props.changeTaskStatus,
-    props.changeTaskTitle
   );
 
   return (
@@ -39,14 +35,14 @@ export const Task = React.memo((props: TaskPropsType) => {
         disabled={props.task.entityTaskStatus === "loading"}
         checked={props.task.status === TaskStatuses.Completed}
         color="primary"
-        onChange={onChangeHandler}
+        onChange={changeCheckboxHandler}
       />
 
       <EditableSpan
         disabled={props.task.entityTaskStatus === "loading" || props.entityStatus === "loading"}
         status={props.status}
         value={props.task.title}
-        onChange={onTitleChangeHandler}
+        onChange={changeTaskTitleHandler}
       />
     </div>
   );
