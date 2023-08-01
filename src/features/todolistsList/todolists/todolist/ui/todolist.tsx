@@ -14,8 +14,6 @@ type PropsType = {
   id: string;
   title: string;
   tasks: Array<TaskTypeWithEntityTaskStatusType>;
-  changeFilter: (value: FilterValuesType, todolistId: string) => void;
-  removeTodolist: (id: string) => void;
   changeTodolistTitle: (id: string, newTitle: string) => void;
   filter: FilterValuesType;
   entityStatus: RequestStatusType;
@@ -25,7 +23,7 @@ export const Todolist = React.memo(function (props: PropsType) {
   console.log("todolist called");
   const {
     addTaskCallBack,
-    removeTodolist,
+    removeTodolistCallBack,
     changeTodolistTitle,
     onAllClickHandler,
     onActiveClickHandler,
@@ -33,9 +31,7 @@ export const Todolist = React.memo(function (props: PropsType) {
     tasksForTodolist,
   } = useTodolist(
     props.id,
-    props.removeTodolist,
     props.changeTodolistTitle,
-    props.changeFilter,
     props.tasks,
     props.filter
   );
@@ -43,7 +39,7 @@ export const Todolist = React.memo(function (props: PropsType) {
   return (
     <div>
       <div className={styles.todolist}>
-        <IconButton disabled={props.entityStatus === "loading"} onClick={removeTodolist} color={"error"}>
+        <IconButton disabled={props.entityStatus === "loading"} onClick={removeTodolistCallBack} color={"error"}>
           <Delete />
         </IconButton>
         <EditableSpan disabled={props.entityStatus === "loading"} value={props.title} onChange={changeTodolistTitle} />

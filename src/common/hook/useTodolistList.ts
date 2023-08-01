@@ -1,8 +1,6 @@
 import { useCallback, useEffect } from "react";
 import {
-  FilterValuesType,
   TodolistDomainType,
-  todolistsActions,
   todolistsThunks,
 } from "features/todolistsList/todolists/model/todolists-reducer";
 import { TasksStateType, taskThanks } from "features/todolistsList/tasks/model/tasks-reducer";
@@ -20,13 +18,12 @@ export const useTodolistList = () => {
   const addTodolistStatus = useAppSelector<RequestStatusType>(selectAddTodolistStatus);
 
   const {
-    removeTodolist: removeTodolistThunk,
     changeTodolistTitle: changeTodolistTitleThunk,
     addTodolist: addTodolistThunk,
     fetchTodolists: fetchTodolistsThunk,
   } = useActions({ ...taskThanks, ...todolistsThunks });
 
-  const { changeTodolistFilter } = useActions(todolistsActions);
+  // const { changeTodolistFilter } = useActions(todolistsActions);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -51,13 +48,13 @@ export const useTodolistList = () => {
   //   updateTask({ taskId, domainModel: { title }, todolistId });
   // }, []);
 
-  const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
-    changeTodolistFilter({ id: todolistId, filter: value });
-  }, []);
+  // const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
+  //   changeTodolistFilter({ id: todolistId, filter: value });
+  // }, []);
 
-  const removeTodolist = useCallback(function (todolistId: string) {
-    removeTodolistThunk({ todolistId });
-  }, []);
+  // const removeTodolist = useCallback(function (todolistId: string) {
+  //   removeTodolistThunk({ todolistId });
+  // }, []);
 
   const changeTodolistTitle = useCallback(function (id: string, title: string) {
     changeTodolistTitleThunk({ id, title });
@@ -72,8 +69,6 @@ export const useTodolistList = () => {
     addTodolistStatus,
     tasks,
     todolists,
-    changeFilter,
-    removeTodolist,
     changeTodolistTitle,
     addTodolist,
   };

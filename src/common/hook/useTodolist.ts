@@ -1,19 +1,22 @@
 import { useCallback, useEffect } from "react";
 import { taskThanks, TaskTypeWithEntityTaskStatusType } from "features/todolistsList/tasks/model/tasks-reducer";
-import { FilterValuesType } from "features/todolistsList/todolists/model/todolists-reducer";
+import {
+  FilterValuesType,
+  todolistsActions,
+  todolistsThunks
+} from "features/todolistsList/todolists/model/todolists-reducer";
 import { TaskStatuses } from "common/enums/common-enums";
 import {useActions} from "./useActions";
 
 export const useTodolist = (
   propsID: string,
-  propsRemoveTodolist: (id: string) => void,
   propsChangeTodolistTitle: (id: string, newTitle: string) => void,
-  propsChangeFilter: (value: FilterValuesType, todolistId: string) => void,
   propsTasks: Array<TaskTypeWithEntityTaskStatusType>,
   propsFilter: FilterValuesType
 ) => {
 
-  const {fetchTasks,addTask} = useActions(taskThanks)
+  const {fetchTasks,addTask, removeTodolist} = useActions({...taskThanks, ...todolistsThunks})
+  const { changeTodolistFilter } = useActions(todolistsActions);
 
   const addTaskCallBack =
     (title: string) => {
@@ -24,8 +27,8 @@ export const useTodolist = (
     fetchTasks(propsID);
   }, []);
 
-  const removeTodolist = () => {
-    propsRemoveTodolist(propsID);
+  const removeTodolistCallBack = () => {
+    removeTodolist({ todolistId: propsID });
   };
   const changeTodolistTitle = useCallback(
     (title: string) => {
@@ -33,12 +36,16 @@ export const useTodolist = (
     },
     [propsID, propsChangeTodolistTitle]
   );
+  const changeFilterCallBack =  (value: FilterValuesType, todolistId: string) => {
+    changeTodolistFilter({ id: todolistId, filter: value })
+  }
 
-  const onAllClickHandler = useCallback(() => propsChangeFilter("all", propsID), [propsID, propsChangeFilter]);
-  const onActiveClickHandler = useCallback(() => propsChangeFilter("active", propsID), [propsID, propsChangeFilter]);
+
+  const onAllClickHandler = useCallback(() => changeFilterCallBack("all", propsID), [propsID, changeFilterCallBack]);
+  const onActiveClickHandler = useCallback(() => changeFilterCallBack("active", propsID), [propsID, changeFilterCallBack]);
   const onCompletedClickHandler = useCallback(
-    () => propsChangeFilter("completed", propsID),
-    [propsID, propsChangeFilter]
+    () => changeFilterCallBack("completed", propsID),
+    [propsID, changeFilterCallBack]
   );
 
   let tasksForTodolist = propsTasks;
@@ -51,7 +58,7 @@ export const useTodolist = (
   }
   return {
     addTaskCallBack,
-    removeTodolist,
+    removeTodolistCallBack,
     changeTodolistTitle,
     onAllClickHandler,
     onActiveClickHandler,

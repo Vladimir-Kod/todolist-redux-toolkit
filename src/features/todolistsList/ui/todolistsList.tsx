@@ -17,8 +17,6 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
     addTodolistStatus,
     tasks,
     todolists,
-    changeFilter,
-    removeTodolist,
     changeTodolistTitle,
     addTodolist,
   } = useTodolistList();
@@ -46,9 +44,7 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
                   entityStatus={tl.entityStatus}
                   title={tl.title}
                   tasks={allTodolistTasks}
-                  changeFilter={changeFilter}
                   filter={tl.filter}
-                  removeTodolist={removeTodolist}
                   changeTodolistTitle={changeTodolistTitle}
                 />
               </Paper>
