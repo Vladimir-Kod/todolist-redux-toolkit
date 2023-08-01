@@ -17,8 +17,7 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
     addTodolistStatus,
     tasks,
     todolists,
-    changeTodolistTitle,
-    addTodolist,
+    addTodolistCallBack,
   } = useTodolistList();
 
   if (!isLoggedIn) {
@@ -29,7 +28,7 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
     <>
       <Grid container className={styles.gridContainer}>
         <Paper elevation={12} className={styles.AddItemFormPaper}>
-          <AddItemForm disabled={addTodolistStatus === "loading"} addItem={addTodolist} />
+          <AddItemForm disabled={addTodolistStatus === "loading"} addItem={addTodolistCallBack} />
         </Paper>
       </Grid>
       <Grid container spacing={3}>
@@ -45,7 +44,6 @@ export const TodolistsList: React.FC<TodolistsListType> = () => {
                   title={tl.title}
                   tasks={allTodolistTasks}
                   filter={tl.filter}
-                  changeTodolistTitle={changeTodolistTitle}
                 />
               </Paper>
             </Grid>

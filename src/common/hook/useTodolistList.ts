@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import {
   TodolistDomainType,
   todolistsThunks,
@@ -18,58 +18,26 @@ export const useTodolistList = () => {
   const addTodolistStatus = useAppSelector<RequestStatusType>(selectAddTodolistStatus);
 
   const {
-    changeTodolistTitle: changeTodolistTitleThunk,
-    addTodolist: addTodolistThunk,
-    fetchTodolists: fetchTodolistsThunk,
+    addTodolist,
+    fetchTodolists
   } = useActions({ ...taskThanks, ...todolistsThunks });
-
-  // const { changeTodolistFilter } = useActions(todolistsActions);
 
   useEffect(() => {
     if (!isLoggedIn) {
       return;
     }
-    fetchTodolistsThunk({});
+    fetchTodolists({});
   }, []);
 
-  // const removeTask = useCallback(function (taskId: string, todolistId: string) {
-  //   removeTaskThunk({ taskId, todolistId });
-  // }, []);
-
-  // const addTask = useCallback(function (title: string, todolistId: string) {
-  //   addTaskThunk({ title, todolistId });
-  // }, []);
-
-  // const changeStatus = useCallback(function (taskId: string, status: TaskStatuses, todolistId: string) {
-  //   updateTask({ taskId, domainModel: { status }, todolistId });
-  // }, []);
-
-  // const changeTaskTitle = useCallback(function (taskId: string, title: string, todolistId: string) {
-  //   updateTask({ taskId, domainModel: { title }, todolistId });
-  // }, []);
-
-  // const changeFilter = useCallback(function (value: FilterValuesType, todolistId: string) {
-  //   changeTodolistFilter({ id: todolistId, filter: value });
-  // }, []);
-
-  // const removeTodolist = useCallback(function (todolistId: string) {
-  //   removeTodolistThunk({ todolistId });
-  // }, []);
-
-  const changeTodolistTitle = useCallback(function (id: string, title: string) {
-    changeTodolistTitleThunk({ id, title });
-  }, []);
-
-  const addTodolist = useCallback((title: string) => {
-    addTodolistThunk({ title });
-  }, []);
+  const addTodolistCallBack = (title: string) => {
+    addTodolist({ title });
+  }
 
   return {
     isLoggedIn,
     addTodolistStatus,
     tasks,
     todolists,
-    changeTodolistTitle,
-    addTodolist,
+    addTodolistCallBack,
   };
 };
