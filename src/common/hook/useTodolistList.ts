@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import {
   TodolistDomainType,
   todolistsThunks,
@@ -29,9 +29,9 @@ export const useTodolistList = () => {
     fetchTodolists({});
   }, []);
 
-  const addTodolistCallBack = (title: string) => {
+  const addTodolistCallBack = useCallback((title: string) => {
     addTodolist({ title });
-  }
+  }, []);
 
   return {
     isLoggedIn,

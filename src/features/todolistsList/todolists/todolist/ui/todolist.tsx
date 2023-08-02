@@ -3,12 +3,12 @@ import { Task } from "../../../tasks/ui/task";
 import { FilterValuesType } from "../../model/todolists-reducer";
 import { TaskTypeWithEntityTaskStatusType } from "../../../tasks/model/tasks-reducer";
 import IconButton from "@mui/material/IconButton";
-import Button from "@mui/material/Button";
 import { Delete } from "@mui/icons-material";
 import { RequestStatusType } from "app/app-reducer";
 import styles from "./todolist.module.css";
 import { useTodolist } from "common/hook";
 import { AddItemForm, EditableSpan } from "common/components";
+import {FilterTaskButton} from "../../filter-task-button/filter-task-button";
 
 type PropsType = {
   id: string;
@@ -24,9 +24,6 @@ export const Todolist = React.memo(function (props: PropsType) {
     addTaskCallBack,
     removeTodolistCallBack,
     changeTodolistTitleCallBack,
-    onAllClickHandler,
-    onActiveClickHandler,
-    onCompletedClickHandler,
     tasksForTodolist,
   } = useTodolist(
     props.id,
@@ -57,23 +54,7 @@ export const Todolist = React.memo(function (props: PropsType) {
         ))}
       </div>
       <div className={styles.buttonGroup}>
-        <Button variant={props.filter === "all" ? "outlined" : "text"} onClick={onAllClickHandler} color={"inherit"}>
-          All
-        </Button>
-        <Button
-          variant={props.filter === "active" ? "outlined" : "text"}
-          onClick={onActiveClickHandler}
-          color={"primary"}
-        >
-          Active
-        </Button>
-        <Button
-          variant={props.filter === "completed" ? "outlined" : "text"}
-          onClick={onCompletedClickHandler}
-          color={"secondary"}
-        >
-          Completed
-        </Button>
+        <FilterTaskButton filter={props.filter} id={props.id}/>
       </div>
     </div>
   );

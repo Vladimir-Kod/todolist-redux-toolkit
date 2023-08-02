@@ -2,7 +2,6 @@ import {useCallback, useEffect} from "react";
 import {taskThanks, TaskTypeWithEntityTaskStatusType} from "features/todolistsList/tasks/model/tasks-reducer";
 import {
     FilterValuesType,
-    todolistsActions,
     todolistsThunks
 } from "features/todolistsList/todolists/model/todolists-reducer";
 import {TaskStatuses} from "common/enums/common-enums";
@@ -15,7 +14,6 @@ export const useTodolist = (
 ) => {
 
     const {fetchTasks, addTask, removeTodolist, changeTodolistTitle} = useActions({...taskThanks, ...todolistsThunks})
-    const {changeTodolistFilter} = useActions(todolistsActions);
 
     const addTaskCallBack =
         (title: string) => {
@@ -26,25 +24,13 @@ export const useTodolist = (
         fetchTasks(propsID);
     }, []);
 
-    const removeTodolistCallBack = () => {
+    const removeTodolistCallBack = useCallback(() => {
         removeTodolist({todolistId: propsID});
-    };
-    const changeTodolistTitleCallBack =
-        (title: string) => {
-            changeTodolistTitle({id: propsID, title});
-        }
+    },[propsID, removeTodolist]);
 
-    const changeFilterCallBack = (value: FilterValuesType, todolistId: string) => {
-        changeTodolistFilter({id: todolistId, filter: value})
-    }
-
-
-    const onAllClickHandler = useCallback(() => changeFilterCallBack("all", propsID), [propsID, changeFilterCallBack]);
-    const onActiveClickHandler = useCallback(() => changeFilterCallBack("active", propsID), [propsID, changeFilterCallBack]);
-    const onCompletedClickHandler = useCallback(
-        () => changeFilterCallBack("completed", propsID),
-        [propsID, changeFilterCallBack]
-    );
+    const changeTodolistTitleCallBack = useCallback((title: string) => {
+        changeTodolistTitle({id: propsID, title});
+    },[propsID, changeTodolistTitle],)
 
     let tasksForTodolist = propsTasks;
 
@@ -58,9 +44,6 @@ export const useTodolist = (
         addTaskCallBack,
         removeTodolistCallBack,
         changeTodolistTitleCallBack,
-        onAllClickHandler,
-        onActiveClickHandler,
-        onCompletedClickHandler,
         tasksForTodolist,
     };
 };
