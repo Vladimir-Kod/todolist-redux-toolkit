@@ -1,14 +1,13 @@
 import React, {FC} from "react";
 import {FilterValuesType} from "../../model/todolists-reducer";
 import {TaskTypeWithEntityTaskStatusType} from "../../../tasks/model/tasks-reducer";
-import IconButton from "@mui/material/IconButton";
-import {Delete} from "@mui/icons-material";
 import {RequestStatusType} from "app/app-reducer";
 import styles from "./todolist.module.css";
 import {useTodolist} from "common/hook";
-import {AddItemForm, EditableSpan} from "common/components";
+import {AddItemForm} from "common/components";
 import {FilterTaskButton} from "../../filter-task-button/filter-task-button";
 import {Tasks} from "../tasks/tasks";
+import {TodolistTitle} from "../todolist-title/todolist-title";
 
 type Props = {
     id: string;
@@ -18,12 +17,10 @@ type Props = {
     entityStatus: RequestStatusType;
 };
 
-export const Todolist: FC<Props> = React.memo(function ({id, title, tasks, filter,entityStatus}) {
-    console.log("todolist called");
+export const Todolist: FC<Props> = React.memo(function ({id, title, tasks, filter, entityStatus}) {
+
     const {
         addTaskCallBack,
-        removeTodolistCallBack,
-        changeTodolistTitleCallBack,
     } = useTodolist(
         id,
     );
@@ -31,12 +28,9 @@ export const Todolist: FC<Props> = React.memo(function ({id, title, tasks, filte
     return (
         <div>
             <div className={styles.todolist}>
-                <IconButton disabled={entityStatus === "loading"} onClick={removeTodolistCallBack}
-                            color={"error"}>
-                    <Delete/>
-                </IconButton>
-                <EditableSpan disabled={entityStatus === "loading"} value={title}
-                              onChange={changeTodolistTitleCallBack}/>
+
+                <TodolistTitle title={title} entityStatus={entityStatus} id={id}/>
+
             </div>
 
             <AddItemForm disabled={entityStatus === "loading"} addItem={addTaskCallBack}/>

@@ -2,12 +2,12 @@ import React, {FC, memo} from "react";
 import { Delete } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import Checkbox from "@mui/material/Checkbox";
-import { TaskTypeWithEntityTaskStatusType } from "../model/tasks-reducer";
+import { TaskTypeWithEntityTaskStatusType } from "../../../../tasks/model/tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
 import { useTask } from "common/hook";
 import { EditableSpan } from "common/components";
 import { TaskStatuses } from "common/enums/common-enums";
-import s from"../../tasks/model/task.module.css"
+import s from "./task.module.css"
 
 type Props = {
   task: TaskTypeWithEntityTaskStatusType;

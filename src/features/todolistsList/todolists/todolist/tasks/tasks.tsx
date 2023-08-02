@@ -1,4 +1,4 @@
-import {Task} from "../../../tasks/ui/task";
+import {Task} from "./task/task";
 import React, {FC} from "react";
 import {TaskTypeWithEntityTaskStatusType} from "../../../tasks/model/tasks-reducer";
 import {RequestStatusType} from "../../../../../app/app-reducer";
