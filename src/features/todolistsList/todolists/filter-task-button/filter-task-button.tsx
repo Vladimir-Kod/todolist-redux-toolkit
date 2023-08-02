@@ -12,8 +12,8 @@ export const FilterTaskButton: FC<Props> = ({filter, id})=>{
 
     const {changeTodolistFilter} = useActions(todolistsActions);
 
-    const changeFilterHandler = (filter:FilterValuesType)=>{
-        changeTodolistFilter({filter, id})
+    const changeFilterHandler = (filterValue:FilterValuesType)=>{
+        changeTodolistFilter({filter:filterValue, id})
     }
 
     return (
