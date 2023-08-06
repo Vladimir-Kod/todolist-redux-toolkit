@@ -1,10 +1,10 @@
 import React from "react";
-import { Todolist } from "../todolists/todolist/ui/todolist";
+import { Todolist } from "../todolists/ui/todolist/todolist";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { RequestStatusType } from "app/app-reducer";
 import { Navigate } from "react-router-dom";
-import styles from "../model/todolistsList.module.css";
+import styles from "./todolistsList.module.css";
 import { useTodolistList } from "common/hook";
 import { AddItemForm } from "common/components";
 

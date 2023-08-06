@@ -13,7 +13,7 @@ export const useTodolist = (
 
     const addTaskCallBack =
         (title: string) => {
-            addTask({title, todolistId: propsID});
+            return addTask({title, todolistId: propsID}).unwrap();
         }
 
     useEffect(() => {

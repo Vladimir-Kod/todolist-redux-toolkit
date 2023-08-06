@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { appActions } from "app/app-reducer";
 import { clearTasksAndTodolists } from "common/actions/common.action";
-import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
+import { createAppAsyncThunk, handleServerNetworkError } from "common/utils";
 import { ResultCode } from "common/enums/common-enums";
 import { authAPI, AuthRequestType } from "features/Login/login-auth-api";
 
-const authMe = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/authMe", async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
+const authMe = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/authMe", async (arg, { dispatch, rejectWithValue }) => {
   try {
     const res = await authAPI.authMe();
     if (res.data.resultCode === ResultCode.OK) {
@@ -22,17 +21,13 @@ const authMe = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/authMe",
   }
 });
 
-const logOut = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logOut", async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
+const logOut = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logOut", async (arg, { dispatch, rejectWithValue }) => {
   try {
-    dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
     const res = await authAPI.logOut();
     if (res.data.resultCode === ResultCode.OK) {
-      dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
       dispatch(clearTasksAndTodolists());
       return { isLoggedIn: false };
     } else {
-      handleServerAppError<{}>(res.data, dispatch);
       return rejectWithValue(null);
     }
   } catch (e) {
@@ -41,21 +36,17 @@ const logOut = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/logOut",
   }
 });
 
-const login = createAppAsyncThunk<{ isLoggedIn: boolean }, AuthRequestType>("auth/login", async (arg, thunkAPI) => {
-  const { dispatch, rejectWithValue } = thunkAPI;
+const login = createAppAsyncThunk<{ isLoggedIn: boolean }, AuthRequestType>("auth/login", async (arg, { dispatch, rejectWithValue }) => {
   try {
-    dispatch(appActions.setRequestStatus({ requestStatus: "loading" }));
     const res = await authAPI.login(arg);
     if (res.data.resultCode === ResultCode.OK) {
-      dispatch(appActions.setRequestStatus({ requestStatus: "succeeded" }));
       return { isLoggedIn: true };
     } else {
       // ❗ Если у нас fieldsErrors есть значит мы будем отображать эти ошибки
-      // в конкретном поле в компоненте (пункт 7)
+      // в конкретном поле в компоненте
       // ❗ Если у нас fieldsErrors нету значит отобразим ошибку глобально
       const isShowAppError = !res.data.fieldsErrors.length;
-      handleServerAppError<{}>(res.data, dispatch, isShowAppError);
-      return rejectWithValue(res.data);
+      return rejectWithValue({data: res.data, showGlobalError: isShowAppError});
     }
   } catch (e) {
     handleServerNetworkError(e, dispatch);

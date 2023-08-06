@@ -1,9 +1,9 @@
 import {Task} from "./task/task";
 import React, {FC} from "react";
-import {TaskTypeWithEntityTaskStatusType} from "../../../tasks/model/tasks-reducer";
-import {RequestStatusType} from "../../../../../app/app-reducer";
-import {TaskStatuses} from "../../../../../common/enums";
-import {FilterValuesType} from "../../model/todolists-reducer";
+import {TaskTypeWithEntityTaskStatusType} from "../../../../tasks/model/tasks-reducer";
+import {RequestStatusType} from "../../../../../../app/app-reducer";
+import {TaskStatuses} from "../../../../../../common/enums";
+import {FilterValuesType} from "../../../model/todolists-reducer";
 
 type Props = {
     tasks: Array<TaskTypeWithEntityTaskStatusType>

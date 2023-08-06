@@ -30,7 +30,7 @@ export const useTodolistList = () => {
   }, []);
 
   const addTodolistCallBack = useCallback((title: string) => {
-    addTodolist({ title });
+    return addTodolist({ title }).unwrap()
   }, []);
 
   return {

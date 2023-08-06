@@ -1,10 +1,10 @@
 import IconButton from "@mui/material/IconButton";
 import {Delete} from "@mui/icons-material";
-import {EditableSpan} from "../../../../../common/components";
+import {EditableSpan} from "../../../../../../common/components";
 import React, {FC} from "react";
-import {RequestStatusType} from "../../../../../app/app-reducer";
-import {useActions} from "../../../../../common/hook";
-import {todolistsThunks} from "../../model/todolists-reducer";
+import {RequestStatusType} from "../../../../../../app/app-reducer";
+import {useActions} from "../../../../../../common/hook";
+import {todolistsThunks} from "../../../model/todolists-reducer";
 
 
 type Props = {

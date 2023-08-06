@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import { FormikHelpers, useFormik } from "formik";
 import { Navigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
-import styles from "../todolistsList/model/todolistsList.module.css";
+import styles from "../todolistsList/ui/todolistsList.module.css";
 import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";
 import { authThunk } from "features/Login/login-auth-reducer";

@@ -5,9 +5,9 @@ import {RequestStatusType} from "app/app-reducer";
 import styles from "./todolist.module.css";
 import {useTodolist} from "common/hook";
 import {AddItemForm} from "common/components";
-import {FilterTaskButton} from "../../filter-task-button/filter-task-button";
-import {Tasks} from "../tasks/tasks";
-import {TodolistTitle} from "../todolist-title/todolist-title";
+import {FilterTaskButton} from "./filter-task-button/filter-task-button";
+import {Tasks} from "./tasks/tasks";
+import {TodolistTitle} from "./todolist-title/todolist-title";
 
 type Props = {
     id: string;

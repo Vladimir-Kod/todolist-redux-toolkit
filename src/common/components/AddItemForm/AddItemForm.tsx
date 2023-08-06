@@ -5,11 +5,11 @@ import { AddBox } from "@mui/icons-material";
 import { useAddItemForm } from "common/hook";
 
 type AddItemFormPropsType = {
-  addItem: (title: string) => void;
-  disabled: boolean;
+  addItem: (title: string) => Promise<any> ;
+  disabled?: boolean;
 };
 export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
-  console.log("AddItemForm called");
+
 
   const { title, onChangeHandler, onKeyPressHandler, addItem, error } = useAddItemForm(props.addItem);
 
