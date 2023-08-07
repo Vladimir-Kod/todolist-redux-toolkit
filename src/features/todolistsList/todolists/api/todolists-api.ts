@@ -24,7 +24,3 @@ export const todolistsAPI = {
     return instance.put<ResponseType, AxiosResponse<ResponseType>, { title: string }>(`todo-lists/${id}`, { title });
   },
 };
-
-
-
-

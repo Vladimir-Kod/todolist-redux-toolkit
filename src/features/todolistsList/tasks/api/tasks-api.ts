@@ -3,7 +3,6 @@ import { instance } from "common/api";
 import { ResponseType } from "common/types";
 import {AddTaskArgType, GetTasksResponse, TaskType, UpdateTaskModelType} from "./tasks-api-type";
 
-
 export const taskAPI = {
   getTasks(todolistId: string) {
     return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`);
@@ -29,5 +28,3 @@ export const taskAPI = {
     >(`todo-lists/${todolistId}/tasks/${taskId}`, model);
   },
 };
-
-

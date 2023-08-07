@@ -3,7 +3,7 @@ import { appActions } from "app/app-reducer";
 import { clearTasksAndTodolists } from "common/actions/common.action";
 import { createAppAsyncThunk, handleServerNetworkError } from "common/utils";
 import { ResultCode } from "common/enums/common-enums";
-import { authAPI, AuthRequestType } from "features/Login/login-auth-api";
+import { authAPI, AuthRequestType } from "features/login/login-auth-api";
 
 const authMe = createAppAsyncThunk<{ isLoggedIn: boolean }, void>("auth/authMe", async (arg, { dispatch, rejectWithValue }) => {
   try {

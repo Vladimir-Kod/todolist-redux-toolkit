@@ -1,6 +1,5 @@
 import {TodolistDomainType, todolistsActions, todolistsReducer, todolistsThunks} from "./todolists-reducer";
 
-
 describe("todolists reducer", () => {
   let initialState: TodolistDomainType[];
 

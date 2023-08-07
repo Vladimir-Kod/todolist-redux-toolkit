@@ -6,7 +6,7 @@ import {
 import { TasksStateType, taskThanks } from "features/todolistsList/tasks/model/tasks-reducer";
 import { RequestStatusType } from "app/app-reducer";
 import { selectTasks, selectTodolists } from "features/todolistsList/model/useTodolistList-selectors";
-import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
+import { selectIsLoggedIn } from "features/login/login-auth-selectors";
 import { selectAddTodolistStatus } from "app/app-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";
 import { useActions } from "common/hook/useActions";

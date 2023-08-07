@@ -18,11 +18,6 @@ export type argsUpdateTaskType = {
   todolistId: string;
 };
 
-export type ErrorsType = {
-  field: string;
-  message: string;
-};
-
 export type removeTaskArgsType = {
   taskId: string;
   todolistId: string;

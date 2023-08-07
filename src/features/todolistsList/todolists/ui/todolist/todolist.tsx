@@ -16,7 +16,6 @@ type Props = {
     filter: FilterValuesType;
     entityStatus: RequestStatusType;
 };
-
 export const Todolist: FC<Props> = React.memo(function ({id, title, tasks, filter, entityStatus}) {
 
     const {

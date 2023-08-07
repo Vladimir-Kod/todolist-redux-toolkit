@@ -2,7 +2,6 @@ import { tasksReducer, TasksStateType, taskThanks } from "./tasks-reducer";
 import { TaskStatuses } from "common/enums/common-enums";
 import {TaskType} from "../api/tasks-api-type";
 
-
 describe("tasks reducer", () => {
   let startState: TasksStateType = {};
 

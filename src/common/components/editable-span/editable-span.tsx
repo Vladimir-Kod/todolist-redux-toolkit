@@ -10,7 +10,7 @@ type EditableSpanPropsType = {
 };
 
 export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
-  console.log("EditableSpan called");
+  console.log("editable-span called");
 
   const { editMode, title, changeTitle, activateViewMode, activateEditMode, opacity, lineThrough } = useEditableSpan(
     props.value,

@@ -11,10 +11,10 @@ import { FormikHelpers, useFormik } from "formik";
 import { Navigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import styles from "../todolistsList/ui/todolistsList.module.css";
-import { selectIsLoggedIn } from "features/Login/login-auth-selectors";
+import { selectIsLoggedIn } from "features/login/login-auth-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";
-import { authThunk } from "features/Login/login-auth-reducer";
-import { AuthRequestType } from "features/Login/login-auth-api";
+import { authThunk } from "features/login/login-auth-reducer";
+import { AuthRequestType } from "features/login/login-auth-api";
 import { ResponseType } from "common/types";
 import {useActions} from "../../common/hook";
 
