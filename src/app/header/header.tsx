@@ -18,8 +18,8 @@ export const Header = () =>{
 
     return (
         <>
-            <AppBar color={"inherit"} position="static" sx={{ paddingRight: "30px" }}>
-                <Toolbar className="AppToolbar">
+            <AppBar color={"inherit"} position="static" >
+                <Toolbar className="AppToolbar" >
                     <Typography variant="h6" color={"black"}>
                         <p className="AppTypographyP">MY TODOLIST</p>
                     </Typography>

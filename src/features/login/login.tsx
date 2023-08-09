@@ -11,14 +11,14 @@ import { FormikHelpers, useFormik } from "formik";
 import { Navigate } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import styles from "../todolistsList/ui/todolistsList.module.css";
-import { selectIsLoggedIn } from "features/login/login-auth-selectors";
+import { selectIsLoggedIn, selectSecurityUrl } from "features/login/login-auth-selectors";
 import { useAppSelector } from "common/hook/useAppSelector";
 import { authThunk } from "features/login/login-auth-reducer";
 import { AuthRequestType } from "features/login/login-auth-api";
 import { ResponseType } from "common/types";
-import {useActions} from "../../common/hook";
+import { useActions } from "../../common/hook";
 
-type FormikErrorType = Partial<Omit<AuthRequestType,'captcha'>>
+type FormikErrorType = Partial<Omit<AuthRequestType, "captcha">>
 
 const validate = (values: any) => {
   const errors: FormikErrorType = {};
@@ -37,14 +37,16 @@ const validate = (values: any) => {
 
 export const Login = () => {
   const isLoggedIn = useAppSelector<boolean>(selectIsLoggedIn);
+  const securityUrl = useAppSelector<string | null>(selectSecurityUrl);
 
-  const {login} = useActions(authThunk)
+  const { login } = useActions(authThunk);
 
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       rememberMe: false,
+      captcha: ""
     },
     validate,
     onSubmit: (values, formikHelpers: FormikHelpers<AuthRequestType>) => {
@@ -55,7 +57,7 @@ export const Login = () => {
             formikHelpers.setFieldError(fieldErrors.field, fieldErrors.error);
           });
         });
-    },
+    }
   });
 
   if (isLoggedIn) {
@@ -63,7 +65,7 @@ export const Login = () => {
   }
 
   return (
-    <Grid container justifyContent={"center"}>
+    <Grid container justifyContent={"center"} sx={{paddingTop: "100px"}}>
       <Grid item justifyContent={"center"}>
         <Paper elevation={12} className={styles.TodolistPaper}>
           <form onSubmit={formik.handleSubmit}>
@@ -96,7 +98,12 @@ export const Login = () => {
                   control={<Checkbox checked={formik.values.rememberMe} {...formik.getFieldProps("rememberMe")} />}
                 />
 
-                <Button type={"submit"} disabled={!(formik.isValid && formik.touched)} variant={"contained"} color={"primary"}>
+                {securityUrl && <img src={securityUrl && securityUrl} alt={"captcha"}/> }
+                {securityUrl && <TextField label="captcha" margin="normal" {...formik.getFieldProps("captcha")} /> }
+
+
+                <Button type={"submit"} disabled={!(formik.isValid && formik.touched)} variant={"contained"}
+                        color={"primary"}>
                   Login
                 </Button>
               </FormGroup>

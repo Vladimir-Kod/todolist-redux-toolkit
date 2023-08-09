@@ -31,3 +31,7 @@ export type changeTodolistTitleArgsType = {
   id: string;
   title: string;
 };
+
+export type securityUrlType = {
+  url: null | string
+}

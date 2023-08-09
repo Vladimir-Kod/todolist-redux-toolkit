@@ -1,25 +1,8 @@
-/*
+
+
 .App {
-  padding: 30px;
-  display: flex;
+  height: 100%;
 }
-
-.App > div {
-  margin-right: 50px;
-}
-
-.error {
-  border: red 1px solid;
-}
-
-.error-message {
-  color: red;
-}
-
-.active-filter {
-  background-color: aquamarine;
-}
-*/
 
 .AppCircularProgress {
   position: fixed;
@@ -29,8 +12,8 @@
 }
 .AppToolbar {
   display: flex;
-  width: 100%;
   align-items: center;
+  position: absolute;
   justify-content: space-between;
 }
 .AppTypographyP {
